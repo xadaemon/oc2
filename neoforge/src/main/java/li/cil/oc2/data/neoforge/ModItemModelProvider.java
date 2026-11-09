@@ -50,7 +50,11 @@ public final class ModItemModelProvider extends ItemModelProvider {
             .texture("layer1", "item/hard_drive_tint");
         simple(Items.HARD_DRIVE_GARGANTUAN, "item/hard_drive_base")
             .texture("layer1", "item/hard_drive_tint");
+        simple(Items.HARD_DRIVE_PLATTER_FERRITE);
         simple(Items.HARD_DRIVE_PLATTER);
+        simple(Items.HARD_DRIVE_PLATTER_STACK_SMALL);
+        simple(Items.HARD_DRIVE_PLATTER_STACK_MEDIUM);
+        simple(Items.HARD_DRIVE_PLATTER_STACK_LARGE);
         simple(Items.HARD_DRIVE_PLATTER_HIGH_CAPACITY);
         simple(Items.HARD_DRIVE_PLATTER_ULTRA_CAPACITY);
         simple(Items.HARD_DRIVE_PLATTER_STACK_HUGE);

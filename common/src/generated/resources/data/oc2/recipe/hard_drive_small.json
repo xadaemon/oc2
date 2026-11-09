@@ -8,8 +8,8 @@
     "I": {
       "tag": "c:ingots/iron"
     },
-    "L": {
-      "tag": "c:gems/lapis"
+    "S": {
+      "item": "oc2:hard_drive_platter_stack_small"
     },
     "T": {
       "item": "oc2:transistor"
@@ -17,7 +17,8 @@
   },
   "pattern": [
     "ITI",
-    "LBL"
+    "ISI",
+    "IBI"
   ],
   "result": {
     "count": 1,

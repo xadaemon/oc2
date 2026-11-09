@@ -8,8 +8,8 @@
     "I": {
       "tag": "c:ingots/iron"
     },
-    "Q": {
-      "tag": "c:gems/quartz"
+    "S": {
+      "item": "oc2:hard_drive_platter_stack_medium"
     },
     "T": {
       "item": "oc2:transistor"
@@ -17,7 +17,8 @@
   },
   "pattern": [
     "ITI",
-    "QBQ"
+    "ISI",
+    "IBI"
   ],
   "result": {
     "count": 1,

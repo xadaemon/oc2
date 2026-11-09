@@ -129,9 +129,16 @@ public final class Items {
 
     public static final RegistrySupplier<Item> CIRCUIT_BOARD = register("circuit_board", ModItem::new);
     public static final RegistrySupplier<Item> TRANSISTOR = register("transistor", ModItem::new);
+    public static final RegistrySupplier<Item> HARD_DRIVE_PLATTER_FERRITE = register("hard_drive_platter_ferrite", ModItem::new);
     public static final RegistrySupplier<Item> HARD_DRIVE_PLATTER = register("hard_drive_platter", ModItem::new);
     public static final RegistrySupplier<Item> HARD_DRIVE_PLATTER_HIGH_CAPACITY = register("hard_drive_platter_high_capacity", ModItem::new);
     public static final RegistrySupplier<Item> HARD_DRIVE_PLATTER_ULTRA_CAPACITY = register("hard_drive_platter_ultra_capacity", ModItem::new);
+    public static final RegistrySupplier<PlatterStackItem> HARD_DRIVE_PLATTER_STACK_SMALL = register("hard_drive_platter_stack_small", () ->
+        new PlatterStackItem(HARD_DRIVE_SMALL));
+    public static final RegistrySupplier<PlatterStackItem> HARD_DRIVE_PLATTER_STACK_MEDIUM = register("hard_drive_platter_stack_medium", () ->
+        new PlatterStackItem(HARD_DRIVE_MEDIUM));
+    public static final RegistrySupplier<PlatterStackItem> HARD_DRIVE_PLATTER_STACK_LARGE = register("hard_drive_platter_stack_large", () ->
+        new PlatterStackItem(HARD_DRIVE_LARGE));
     public static final RegistrySupplier<PlatterStackItem> HARD_DRIVE_PLATTER_STACK_HUGE = register("hard_drive_platter_stack_huge", () ->
         new PlatterStackItem(HARD_DRIVE_HUGE));
     public static final RegistrySupplier<PlatterStackItem> HARD_DRIVE_PLATTER_STACK_GIANT = register("hard_drive_platter_stack_giant", () ->

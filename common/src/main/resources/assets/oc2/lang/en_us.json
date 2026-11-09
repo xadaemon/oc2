@@ -97,6 +97,8 @@
   "item.oc2.transistor.desc": "Crafting material.",
   "item.oc2.circuit_board": "Circuit Board",
   "item.oc2.circuit_board.desc": "Crafting material.",
+  "item.oc2.hard_drive_platter_ferrite": "Ferrite Platter",
+  "item.oc2.hard_drive_platter_ferrite.desc": "Crafting material. Stacked to build 2M to 8M Hard Drives.",
   "item.oc2.hard_drive_platter": "Hard Drive Platter",
   "item.oc2.hard_drive_platter.desc": "Crafting material. Stacked to build 16M to 64M Hard Drives.",
   "item.oc2.hard_drive_platter_high_capacity": "High Capacity Platter",

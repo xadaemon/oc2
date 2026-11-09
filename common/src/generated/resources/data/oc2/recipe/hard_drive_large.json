@@ -5,11 +5,11 @@
     "B": {
       "item": "oc2:circuit_board"
     },
-    "D": {
-      "tag": "c:gems/diamond"
-    },
     "I": {
       "tag": "c:ingots/iron"
+    },
+    "S": {
+      "item": "oc2:hard_drive_platter_stack_large"
     },
     "T": {
       "item": "oc2:transistor"
@@ -17,7 +17,8 @@
   },
   "pattern": [
     "ITI",
-    "DBD"
+    "ISI",
+    "IBI"
   ],
   "result": {
     "count": 1,

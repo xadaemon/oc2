@@ -11,6 +11,16 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "has_platter_stack": {
+      "conditions": {
+        "items": [
+          {
+            "items": "oc2:hard_drive_platter_stack_medium"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "has_robot": {
       "conditions": {
         "items": [
@@ -32,7 +42,8 @@
     [
       "has_the_recipe",
       "has_computer",
-      "has_robot"
+      "has_robot",
+      "has_platter_stack"
     ]
   ],
   "rewards": {

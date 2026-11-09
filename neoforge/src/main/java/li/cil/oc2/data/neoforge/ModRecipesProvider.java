@@ -426,15 +426,37 @@ public final class ModRecipesProvider extends RecipeProvider {
             .save(highMemory(consumer));
 
         ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_PLATTER_FERRITE.get(), 2)
+            .pattern("RRR")
+            .pattern("III")
+            .define('R', Tags.Items.DUSTS_REDSTONE)
+            .define('I', Tags.Items.INGOTS_IRON)
+            .unlockedBy("has_computer", inventoryChange(Items.COMPUTER.get()))
+            .unlockedBy("has_robot", inventoryChange(Items.ROBOT.get()))
+            .save(consumer);
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_PLATTER_STACK_SMALL.get())
+            .pattern("P")
+            .pattern("I")
+            .pattern("P")
+            .define('P', Items.HARD_DRIVE_PLATTER_FERRITE.get())
+            .define('I', Tags.Items.INGOTS_IRON)
+            .unlockedBy("has_platter", inventoryChange(Items.HARD_DRIVE_PLATTER_FERRITE.get()))
+            .save(consumer);
+
+        ShapedRecipeBuilder
             .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_SMALL.get())
             .pattern("ITI")
-            .pattern("LBL")
+            .pattern("ISI")
+            .pattern("IBI")
             .define('I', Tags.Items.INGOTS_IRON)
             .define('T', Items.TRANSISTOR.get())
             .define('B', Items.CIRCUIT_BOARD.get())
-            .define('L', Tags.Items.GEMS_LAPIS)
+            .define('S', Items.HARD_DRIVE_PLATTER_STACK_SMALL.get())
             .unlockedBy("has_computer", inventoryChange(Items.COMPUTER.get()))
             .unlockedBy("has_robot", inventoryChange(Items.ROBOT.get()))
+            .unlockedBy("has_platter_stack", inventoryChange(Items.HARD_DRIVE_PLATTER_STACK_SMALL.get()))
             .save(consumer);
 
         ToolRecipeBuilder
@@ -452,27 +474,51 @@ public final class ModRecipesProvider extends RecipeProvider {
             .save(consumer, API.MOD_ID + ":hard_drive_small_erase");
 
         ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_PLATTER_STACK_MEDIUM.get())
+            .pattern(" P ")
+            .pattern("PIP")
+            .pattern(" P ")
+            .define('P', Items.HARD_DRIVE_PLATTER_FERRITE.get())
+            .define('I', Tags.Items.INGOTS_IRON)
+            .unlockedBy("has_platter", inventoryChange(Items.HARD_DRIVE_PLATTER_FERRITE.get()))
+            .save(consumer);
+
+        ShapedRecipeBuilder
             .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_MEDIUM.get())
             .pattern("ITI")
-            .pattern("QBQ")
+            .pattern("ISI")
+            .pattern("IBI")
             .define('I', Tags.Items.INGOTS_IRON)
             .define('T', Items.TRANSISTOR.get())
             .define('B', Items.CIRCUIT_BOARD.get())
-            .define('Q', Tags.Items.GEMS_QUARTZ)
+            .define('S', Items.HARD_DRIVE_PLATTER_STACK_MEDIUM.get())
             .unlockedBy("has_computer", inventoryChange(Items.COMPUTER.get()))
             .unlockedBy("has_robot", inventoryChange(Items.ROBOT.get()))
+            .unlockedBy("has_platter_stack", inventoryChange(Items.HARD_DRIVE_PLATTER_STACK_MEDIUM.get()))
+            .save(consumer);
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_PLATTER_STACK_LARGE.get())
+            .pattern("PPP")
+            .pattern("PIP")
+            .pattern("PPP")
+            .define('P', Items.HARD_DRIVE_PLATTER_FERRITE.get())
+            .define('I', Tags.Items.INGOTS_IRON)
+            .unlockedBy("has_platter", inventoryChange(Items.HARD_DRIVE_PLATTER_FERRITE.get()))
             .save(consumer);
 
         ShapedRecipeBuilder
             .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_LARGE.get())
             .pattern("ITI")
-            .pattern("DBD")
+            .pattern("ISI")
+            .pattern("IBI")
             .define('I', Tags.Items.INGOTS_IRON)
             .define('T', Items.TRANSISTOR.get())
             .define('B', Items.CIRCUIT_BOARD.get())
-            .define('D', Tags.Items.GEMS_DIAMOND)
+            .define('S', Items.HARD_DRIVE_PLATTER_STACK_LARGE.get())
             .unlockedBy("has_computer", inventoryChange(Items.COMPUTER.get()))
             .unlockedBy("has_robot", inventoryChange(Items.ROBOT.get()))
+            .unlockedBy("has_platter_stack", inventoryChange(Items.HARD_DRIVE_PLATTER_STACK_LARGE.get()))
             .save(consumer);
 
         ToolRecipeBuilder
