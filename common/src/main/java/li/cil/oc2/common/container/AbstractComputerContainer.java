@@ -2,7 +2,6 @@
 
 package li.cil.oc2.common.container;
 
-import li.cil.oc2.common.block.Blocks;
 import li.cil.oc2.common.blockentity.ComputerBlockEntity;
 import li.cil.oc2.common.bus.CommonDeviceBusController;
 import li.cil.oc2.common.energy.EnergyHandler;
@@ -34,6 +33,10 @@ public abstract class AbstractComputerContainer extends AbstractMachineTerminalC
     }
 
     // --------------------------------------------------------------------- //
+
+    public ComputerBlockEntity getComputer() {
+        return computer;
+    }
 
     @Override
     public void switchToInventory() {
@@ -71,7 +74,7 @@ public abstract class AbstractComputerContainer extends AbstractMachineTerminalC
             return false;
         }
         final Level level = computer.getLevel();
-        return level != null && stillValid(ContainerLevelAccess.create(level, computer.getBlockPos()), player, Blocks.COMPUTER.get());
+        return level != null && stillValid(ContainerLevelAccess.create(level, computer.getBlockPos()), player, computer.getBlockState().getBlock());
     }
 
     @Override

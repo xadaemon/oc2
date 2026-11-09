@@ -2,6 +2,7 @@
 
 package li.cil.oc2.client.gui;
 
+import li.cil.oc2.client.gui.widget.Sprite;
 import li.cil.oc2.common.container.ComputerInventoryContainer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -13,8 +14,8 @@ import net.minecraft.world.entity.player.Inventory;
 public final class ComputerContainerScreen extends AbstractMachineInventoryScreen<ComputerInventoryContainer> {
     public ComputerContainerScreen(final ComputerInventoryContainer container, final Inventory inventory, final Component title) {
         super(container, inventory, title);
-        imageWidth = Sprites.COMPUTER_CONTAINER.width;
-        imageHeight = Sprites.COMPUTER_CONTAINER.height;
+        imageWidth = getBackground().width;
+        imageHeight = getBackground().height;
         inventoryLabelY = imageHeight - 94;
     }
 
@@ -23,6 +24,12 @@ public final class ComputerContainerScreen extends AbstractMachineInventoryScree
     @Override
     protected void renderBg(final GuiGraphics graphics, final float partialTicks, final int mouseX, final int mouseY) {
         super.renderBg(graphics, partialTicks, mouseX, mouseY);
-        Sprites.COMPUTER_CONTAINER.draw(graphics, leftPos, topPos);
+        getBackground().draw(graphics, leftPos, topPos);
+    }
+
+    // --------------------------------------------------------------------- //
+
+    private Sprite getBackground() {
+        return Sprites.computerContainer(menu.getComputer().getTier());
     }
 }

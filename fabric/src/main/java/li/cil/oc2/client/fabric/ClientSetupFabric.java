@@ -65,7 +65,9 @@ public final class ClientSetupFabric implements ClientModInitializer {
         BlockEntityRendererRegistry.register(BlockEntities.PROJECTOR.get(), ProjectorRenderer::new);
         BlockEntityRendererRegistry.register(BlockEntities.TERMINAL.get(), TerminalRenderer::new);
 
-        EntityRendererRegistry.register(Entities.ROBOT, RobotRenderer::new);
+        for (final var robotType : Entities.ROBOTS) {
+            EntityRendererRegistry.register(robotType, RobotRenderer::new);
+        }
         EntityModelLayerRegistry.register(RobotModel.ROBOT_MODEL_LAYER, RobotModel::createRobotLayer);
 
         MenuRegistry.registerScreenFactory(Containers.COMPUTER.get(), ComputerContainerScreen::new);
@@ -74,7 +76,9 @@ public final class ClientSetupFabric implements ClientModInitializer {
         MenuRegistry.registerScreenFactory(Containers.ROBOT_TERMINAL.get(), RobotTerminalScreen::new);
         MenuRegistry.registerScreenFactory(Containers.NETWORK_TUNNEL.get(), NetworkTunnelScreen::new);
 
-        BuiltinItemRendererRegistry.INSTANCE.register(Items.ROBOT.get(), new RobotItemRenderer());
+        for (final var robot : Items.ROBOTS) {
+            BuiltinItemRendererRegistry.INSTANCE.register(robot.get(), new RobotItemRenderer());
+        }
 
         registerBusCablePickBlock();
     }

@@ -42,6 +42,13 @@ public final class Constants {
     public static final String TOOLTIP_DESCRIPTION_SUFFIX = ".desc";
     public static final String TOOLTIP_DEVICE_NEEDS_REBOOT = key("tooltip.{mod}.device_needs_reboot");
     public static final String TOOLTIP_CAN_BE_CONFIGURED = key("tooltip.{mod}.can_be_configured");
+    public static final String TOOLTIP_HIGH_MEMORY_DISABLED = key("tooltip.{mod}.high_memory_disabled");
+    public static final String TOOLTIP_MACHINE_TIER = key("tooltip.{mod}.machine_tier");
+    public static final String TOOLTIP_MACHINE_TIER_MEMORY = key("tooltip.{mod}.machine_tier.memory");
+    public static final String TOOLTIP_MACHINE_TIER_HARD_DRIVE = key("tooltip.{mod}.machine_tier.hard_drive");
+    public static final String TOOLTIP_MACHINE_TIER_CARDS = key("tooltip.{mod}.machine_tier.cards");
+    public static final String TOOLTIP_MACHINE_TIER_MODULES = key("tooltip.{mod}.machine_tier.modules");
+    public static final String TOOLTIP_MACHINE_TIER_CLOCK = key("tooltip.{mod}.machine_tier.clock");
     public static final String TOOLTIP_ENERGY = key("tooltip.{mod}.energy");
     public static final String TOOLTIP_ENERGY_CONSUMPTION = key("tooltip.{mod}.energyConsumption");
     public static final String TOOLTIP_FLUID = key("tooltip.{mod}.fluid");

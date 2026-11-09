@@ -1,0 +1,27 @@
+{
+  "type": "oc2:high_memory",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "oc2:circuit_board"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "S": {
+      "item": "oc2:hard_drive_platter_stack_colossal"
+    },
+    "T": {
+      "item": "oc2:transistor"
+    }
+  },
+  "pattern": [
+    "ITI",
+    "ISI",
+    "IBI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "oc2:hard_drive_colossal"
+  }
+}

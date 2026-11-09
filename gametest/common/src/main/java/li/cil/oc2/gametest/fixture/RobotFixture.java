@@ -41,7 +41,14 @@ public final class RobotFixture implements MachineFixture {
     }
 
     public static RobotFixture place(final GameTestHelper helper, final Player player, final BlockPos pos) {
-        useOn(helper, player, new ItemStack(Items.ROBOT.get()), pos, Direction.UP);
+        return place(helper, player, pos, new ItemStack(Items.ROBOT.get()));
+    }
+
+    /**
+     * Places the specified robot item, e.g. a robot of another tier.
+     */
+    public static RobotFixture place(final GameTestHelper helper, final Player player, final BlockPos pos, final ItemStack robotItem) {
+        useOn(helper, player, robotItem, pos, Direction.UP);
         final RobotFixture robot = find(helper, pos, 2);
         final UUID id = robot.entity().getUUID();
         onTestEnd(helper, () -> {

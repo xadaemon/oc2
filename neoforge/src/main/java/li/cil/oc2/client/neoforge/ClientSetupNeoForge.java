@@ -3,6 +3,7 @@
 package li.cil.oc2.client.neoforge;
 
 import dev.architectury.registry.client.rendering.ColorHandlerRegistry;
+import dev.architectury.registry.registries.RegistrySupplier;
 import li.cil.oc2.api.API;
 import li.cil.oc2.client.audio.SoundCardAudio;
 import li.cil.oc2.client.gui.*;
@@ -25,6 +26,7 @@ import li.cil.oc2.common.entity.Entities;
 import li.cil.oc2.common.item.Items;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.world.item.Item;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -62,7 +64,9 @@ public final class ClientSetupNeoForge {
         event.registerBlockEntityRenderer(BlockEntities.PROJECTOR.get(), ProjectorRendererNeoForge::new);
         event.registerBlockEntityRenderer(BlockEntities.TERMINAL.get(), TerminalRenderer::new);
 
-        event.registerEntityRenderer(Entities.ROBOT.get(), RobotRenderer::new);
+        for (final var robotType : Entities.ROBOTS) {
+            event.registerEntityRenderer(robotType.get(), RobotRenderer::new);
+        }
     }
 
     @SubscribeEvent
@@ -99,7 +103,7 @@ public final class ClientSetupNeoForge {
                 }
                 return renderer;
             }
-        }, Items.ROBOT.get());
+        }, Items.ROBOTS.stream().map(RegistrySupplier::get).toArray(Item[]::new));
     }
 
     private ClientSetupNeoForge() {

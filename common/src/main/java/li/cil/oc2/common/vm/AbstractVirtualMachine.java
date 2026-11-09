@@ -24,6 +24,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
 import java.time.Duration;
+import java.util.function.DoubleSupplier;
 import java.util.function.LongSupplier;
 
 public abstract class AbstractVirtualMachine implements VirtualMachine, VirtualMachineClientState {
@@ -54,6 +55,7 @@ public abstract class AbstractVirtualMachine implements VirtualMachine, VirtualM
 
     private DeviceLocationProvider deviceLocationProvider = unused -> DeviceLocation.UNSPECIFIED;
     private LongSupplier gameTimeSource = () -> 0L;
+    private DoubleSupplier clockMultiplier = () -> 1.0;
 
     private AbstractTerminalVMRunner runner;
     private VMRunState runState = VMRunState.STOPPED;
@@ -74,6 +76,13 @@ public abstract class AbstractVirtualMachine implements VirtualMachine, VirtualM
 
     public CommonDeviceBusController getBusController() {
         return busController;
+    }
+
+    /**
+     * Sets the multiplier applied to the processor's configured clock speed, e.g. by machine tier.
+     */
+    public void setClockMultiplier(final DoubleSupplier multiplier) {
+        clockMultiplier = multiplier;
     }
 
     public void setGameTimeSource(final LongSupplier gameTime) {
@@ -344,6 +353,7 @@ public abstract class AbstractVirtualMachine implements VirtualMachine, VirtualM
     private void applyArchitecture(final ArchitectureType type) {
         if (architecture != null && architecture.getType() == type) {
             applyPendingState(architecture);
+            architecture.setClockMultiplier(clockMultiplier.getAsDouble());
             return;
         }
 
@@ -366,6 +376,8 @@ public abstract class AbstractVirtualMachine implements VirtualMachine, VirtualM
         };
 
         applyPendingState(architecture);
+        // After restoring state, which may carry the clock speed it was saved with.
+        architecture.setClockMultiplier(clockMultiplier.getAsDouble());
 
         architecture.handleAfterDeviceScan(busController);
     }

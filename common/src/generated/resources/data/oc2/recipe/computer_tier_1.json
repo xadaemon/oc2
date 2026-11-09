@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "oc2:circuit_board"
+    },
+    "C": {
+      "tag": "c:chests/wooden"
+    },
+    "K": {
+      "tag": "c:ingots/copper"
+    },
+    "T": {
+      "item": "oc2:transistor"
+    }
+  },
+  "pattern": [
+    "KCK",
+    "KTK",
+    "KBK"
+  ],
+  "result": {
+    "count": 1,
+    "id": "oc2:computer_tier_1"
+  }
+}

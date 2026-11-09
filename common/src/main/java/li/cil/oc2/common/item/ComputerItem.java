@@ -3,10 +3,12 @@
 package li.cil.oc2.common.item;
 
 import li.cil.oc2.api.bus.device.DeviceTypes;
+import li.cil.oc2.common.block.ComputerBlock;
 import li.cil.oc2.common.blockentity.BlockEntities;
 import li.cil.oc2.common.bus.device.data.BlockDeviceDataRegistry;
 import li.cil.oc2.common.util.ItemStackUtils;
 import li.cil.oc2.common.util.NBTUtils;
+import li.cil.oc2.common.vm.MachineTier;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.CreativeModeTab;
@@ -28,7 +30,10 @@ public final class ComputerItem extends ModBlockItem implements CreativeTabItemP
     @Override
     public void addCreativeTabItems(final CreativeModeTab.ItemDisplayParameters parameters, final CreativeModeTab.Output output) {
         output.accept(new ItemStack(this));
-        output.accept(preconfigured(parameters.holders()));
+        // The preconfigured computer's parts fit the original computer, which is tier 2.
+        if (getBlock() instanceof final ComputerBlock computer && computer.getTier() == MachineTier.TIER_2) {
+            output.accept(preconfigured(parameters.holders()));
+        }
     }
 
     // --------------------------------------------------------------------- //

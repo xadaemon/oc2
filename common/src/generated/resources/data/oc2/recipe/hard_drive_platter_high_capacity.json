@@ -1,0 +1,27 @@
+{
+  "type": "oc2:high_memory",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "c:ingots/gold"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "S": {
+      "item": "minecraft:netherite_scrap"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "RSR",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "oc2:hard_drive_platter_high_capacity"
+  }
+}

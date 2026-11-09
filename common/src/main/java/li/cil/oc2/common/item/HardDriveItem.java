@@ -30,7 +30,11 @@ public final class HardDriveItem extends AbstractStorageItem implements ColoredI
     // --------------------------------------------------------------------- //
 
     public HardDriveItem(final IntSupplier defaultCapacity, final DyeColor defaultColor) {
-        super(defaultCapacity);
+        this(defaultCapacity, defaultColor, false);
+    }
+
+    public HardDriveItem(final IntSupplier defaultCapacity, final DyeColor defaultColor, final boolean highCapacity) {
+        super(defaultCapacity, highCapacity);
         this.defaultColor = defaultColor.getTextureDiffuseColor();
     }
 

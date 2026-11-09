@@ -8,6 +8,8 @@ import li.cil.oc2.common.blockentity.ModBlockEntity;
 import li.cil.oc2.common.capabilities.Capabilities;
 import li.cil.oc2.common.capabilities.CapabilityType;
 import li.cil.oc2.common.entity.Entities;
+import li.cil.oc2.common.entity.Robot;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -48,30 +50,38 @@ public final class CapabilityRegistrationNeoForge {
     // --------------------------------------------------------------------- //
 
     private static <T> void registerEntity(final RegisterCapabilitiesEvent event, final CapabilityType<T> capability) {
-        event.registerEntity(CapabilitiesImpl.entity(capability), Entities.ROBOT.get(),
-            (robot, side) -> robot.getCapability(capability, side));
+        for (final var robotType : Entities.ROBOTS) {
+            event.registerEntity(CapabilitiesImpl.entity(capability), robotType.get(),
+                (robot, side) -> robot.getCapability(capability, side));
+        }
     }
 
     private static void registerInteropEntity(final RegisterCapabilitiesEvent event) {
-        event.registerEntity(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.ENTITY, Entities.ROBOT.get(),
+        for (final var robotType : Entities.ROBOTS) {
+            registerInteropEntity(event, robotType.get());
+        }
+    }
+
+    private static void registerInteropEntity(final RegisterCapabilitiesEvent event, final EntityType<Robot> robotType) {
+        event.registerEntity(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.ENTITY, robotType,
             (robot, side) -> {
                 final var energy = robot.getCapability(Capabilities.ENERGY_STORAGE, side);
                 return energy != null ? NeoForgeCapabilityAdapters.toNeoForge(energy) : null;
             });
 
-        event.registerEntity(net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.ENTITY_AUTOMATION, Entities.ROBOT.get(),
+        event.registerEntity(net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.ENTITY_AUTOMATION, robotType,
             (robot, side) -> {
                 final var items = robot.getCapability(Capabilities.ITEM_HANDLER, side);
                 return items != null ? NeoForgeCapabilityAdapters.toNeoForge(items) : null;
             });
 
-        event.registerEntity(net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.ENTITY, Entities.ROBOT.get(),
+        event.registerEntity(net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.ENTITY, robotType,
             (robot, context) -> {
                 final var items = robot.getCapability(Capabilities.ITEM_HANDLER, null);
                 return items != null ? NeoForgeCapabilityAdapters.toNeoForge(items) : null;
             });
 
-        event.registerEntity(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.ENTITY, Entities.ROBOT.get(),
+        event.registerEntity(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.ENTITY, robotType,
             (robot, side) -> {
                 final var fluids = robot.getCapability(Capabilities.FLUID_HANDLER, side);
                 return fluids != null ? NeoForgeCapabilityAdapters.toNeoForge(fluids) : null;

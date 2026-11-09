@@ -2,6 +2,11 @@
   "values": [
     "oc2:hard_drive_small",
     "oc2:hard_drive_medium",
-    "oc2:hard_drive_large"
+    "oc2:hard_drive_large",
+    "oc2:hard_drive_huge",
+    "oc2:hard_drive_giant",
+    "oc2:hard_drive_colossal",
+    "oc2:hard_drive_titanic",
+    "oc2:hard_drive_gargantuan"
   ]
 }

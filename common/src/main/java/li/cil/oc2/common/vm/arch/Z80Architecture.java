@@ -81,6 +81,11 @@ public final class Z80Architecture extends AbstractArchitecture {
     }
 
     @Override
+    public void setClockMultiplier(final double multiplier) {
+        board.getCpu().setFrequency(scaleFrequency(li.cil.oc2.common.Config.z80CycleBudgetPerSecond, multiplier));
+    }
+
+    @Override
     public SerialDevice getTerminalDevice() {
         return uart;
     }

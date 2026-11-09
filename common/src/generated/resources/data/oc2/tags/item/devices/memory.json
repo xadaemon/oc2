@@ -2,6 +2,9 @@
   "values": [
     "oc2:memory_small",
     "oc2:memory_medium",
-    "oc2:memory_large"
+    "oc2:memory_large",
+    "oc2:memory_huge",
+    "oc2:memory_giant",
+    "oc2:memory_colossal"
   ]
 }

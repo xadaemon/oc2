@@ -27,7 +27,10 @@ public final class ModBlockTagsProvider extends BlockTagsProvider {
     @Override
     protected void addTags(final HolderLookup.Provider provider) {
         tag(DEVICES).add(
+            COMPUTER_TIER_1.get(),
             COMPUTER.get(),
+            COMPUTER_TIER_3.get(),
+            COMPUTER_TIER_4.get(),
             REDSTONE_INTERFACE.get(),
             DISK_DRIVE.get(),
             FLASH_DRIVE.get(),
@@ -38,7 +41,10 @@ public final class ModBlockTagsProvider extends BlockTagsProvider {
             BUS_CABLE.get()
         );
         tag(WRENCH_BREAKABLE).add(
+            COMPUTER_TIER_1.get(),
             COMPUTER.get(),
+            COMPUTER_TIER_3.get(),
+            COMPUTER_TIER_4.get(),
             BUS_CABLE.get(),
             NETWORK_CONNECTOR.get(),
             NETWORK_HUB.get(),
@@ -56,7 +62,10 @@ public final class ModBlockTagsProvider extends BlockTagsProvider {
         tag(SABLE_SILENT_ASSEMBLY_REMOVAL).add(
             BUS_CABLE.get(),
             CHARGER.get(),
+            COMPUTER_TIER_1.get(),
             COMPUTER.get(),
+            COMPUTER_TIER_3.get(),
+            COMPUTER_TIER_4.get(),
             CREATIVE_ENERGY.get(),
             DISK_DRIVE.get(),
             FLASH_DRIVE.get(),

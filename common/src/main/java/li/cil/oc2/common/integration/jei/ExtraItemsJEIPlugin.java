@@ -21,6 +21,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 import static li.cil.oc2.common.Constants.ITEMS_TAG_NAME;
 
@@ -33,11 +34,15 @@ public class ExtraItemsJEIPlugin implements IModPlugin {
 
     @Override
     public void registerItemSubtypes(final ISubtypeRegistration registration) {
-        registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, Items.COMPUTER.get(), new ComputerSubtypeInterpreter());
-        registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, Items.ROBOT.get(), new RobotSubtypeInterpreter());
-        registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, Items.HARD_DRIVE_SMALL.get(), new ImageSubtypeInterpreter());
-        registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, Items.HARD_DRIVE_MEDIUM.get(), new ImageSubtypeInterpreter());
-        registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, Items.HARD_DRIVE_LARGE.get(), new ImageSubtypeInterpreter());
+        for (final var computer : List.of(Items.COMPUTER_TIER_1, Items.COMPUTER, Items.COMPUTER_TIER_3, Items.COMPUTER_TIER_4)) {
+            registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, computer.get(), new ComputerSubtypeInterpreter());
+        }
+        for (final var robot : Items.ROBOTS) {
+            registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, robot.get(), new RobotSubtypeInterpreter());
+        }
+        for (final var hardDrive : Items.HARD_DRIVES) {
+            registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, hardDrive.get(), new ImageSubtypeInterpreter());
+        }
         registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, Items.FLASH_MEMORY.get(), new ImageSubtypeInterpreter());
         registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, Items.FLOPPY.get(), new ImageSubtypeInterpreter());
     }

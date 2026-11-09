@@ -10,6 +10,7 @@ import li.cil.oc2.common.entity.robot.RobotActions;
 import li.cil.oc2.common.util.ItemStackUtils;
 import li.cil.oc2.common.util.LevelUtils;
 import li.cil.oc2.common.util.NBTUtils;
+import li.cil.oc2.common.vm.MachineTier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -36,15 +37,33 @@ import static li.cil.oc2.common.util.TranslationUtils.text;
 
 
 public final class RobotItem extends ModItem implements CreativeTabItemProvider {
+    private final MachineTier tier;
+
+    // --------------------------------------------------------------------- //
+
+    public RobotItem(final MachineTier tier) {
+        this.tier = tier;
+    }
+
+    // --------------------------------------------------------------------- //
+
+    public MachineTier getTier() {
+        return tier;
+    }
+
     @Override
     public void addCreativeTabItems(final CreativeModeTab.ItemDisplayParameters parameters, final CreativeModeTab.Output output) {
         output.accept(new ItemStack(this));
-        output.accept(preconfigured(parameters.holders()));
+        // The preconfigured robot's parts fit the original robot, which is tier 2.
+        if (tier == MachineTier.TIER_2) {
+            output.accept(preconfigured(parameters.holders()));
+        }
     }
 
     @Override
     public void appendHoverText(final ItemStack stack, final Item.TooltipContext context, final List<Component> tooltip, final TooltipFlag flag) {
         super.appendHoverText(stack, context, tooltip, flag);
+        TooltipUtils.addMachineTierInformation(tier, tier.getRobotSlots(), true, tooltip);
         TooltipUtils.addEntityEnergyInformation(stack, tooltip);
         TooltipUtils.addEntityInventoryInformation(stack, tooltip);
     }
@@ -61,7 +80,7 @@ public final class RobotItem extends ModItem implements CreativeTabItemProvider 
             position = Vec3.atCenterOf(pos.relative(context.getClickedFace()));
         }
 
-        final Robot robot = Entities.ROBOT.get().create(context.getLevel());
+        final Robot robot = Entities.robot(tier).create(context.getLevel());
         if (robot == null) {
             return InteractionResult.FAIL;
         }

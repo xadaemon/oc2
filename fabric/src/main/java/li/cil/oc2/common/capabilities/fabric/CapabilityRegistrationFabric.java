@@ -12,6 +12,7 @@ import li.cil.oc2.common.capabilities.CapabilityType;
 import li.cil.oc2.common.entity.Entities;
 import li.cil.oc2.common.entity.Robot;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import java.util.List;
@@ -77,26 +78,34 @@ public final class CapabilityRegistrationFabric {
     }
 
     private static <T> void registerEntity(final CapabilityType<T> capability) {
-        CapabilitiesImpl.entity(capability).registerForType(
-            (final Robot robot, final Direction side) -> robot.getCapability(capability, side),
-            Entities.ROBOT.get());
+        for (final var robotType : Entities.ROBOTS) {
+            CapabilitiesImpl.entity(capability).registerForType(
+                (final Robot robot, final Direction side) -> robot.getCapability(capability, side),
+                robotType.get());
+        }
     }
 
     private static void registerInteropEntity() {
+        for (final var robotType : Entities.ROBOTS) {
+            registerInteropEntity(robotType.get());
+        }
+    }
+
+    private static void registerInteropEntity(final EntityType<Robot> robotType) {
         EnergyStorage.ENTITY.registerForType((final Robot robot, final Direction side) -> {
             final var energy = robot.getCapability(Capabilities.ENERGY_STORAGE, side);
             return energy != null ? FabricCapabilityAdapters.toFabric(energy) : null;
-        }, Entities.ROBOT.get());
+        }, robotType);
 
         ItemStorage.ENTITY.registerForType((final Robot robot, final Direction side) -> {
             final var items = robot.getCapability(Capabilities.ITEM_HANDLER, side);
             return items != null ? FabricCapabilityAdapters.toFabric(items) : null;
-        }, Entities.ROBOT.get());
+        }, robotType);
 
         FluidStorage.ENTITY.registerForType((final Robot robot, final Direction side) -> {
             final var fluids = robot.getCapability(Capabilities.FLUID_HANDLER, side);
             return fluids != null ? FabricCapabilityAdapters.toFabric(fluids) : null;
-        }, Entities.ROBOT.get());
+        }, robotType);
     }
 
     private CapabilityRegistrationFabric() {

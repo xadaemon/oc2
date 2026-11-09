@@ -31,12 +31,33 @@ public final class ModItemModelProvider extends ItemModelProvider {
         simple(Items.MEMORY_SMALL);
         simple(Items.MEMORY_MEDIUM);
         simple(Items.MEMORY_LARGE);
+        simple(Items.MEMORY_HUGE);
+        simple(Items.MEMORY_GIANT);
+        simple(Items.MEMORY_COLOSSAL);
         simple(Items.HARD_DRIVE_SMALL, "item/hard_drive_base")
             .texture("layer1", "item/hard_drive_tint");
         simple(Items.HARD_DRIVE_MEDIUM, "item/hard_drive_base")
             .texture("layer1", "item/hard_drive_tint");
         simple(Items.HARD_DRIVE_LARGE, "item/hard_drive_base")
             .texture("layer1", "item/hard_drive_tint");
+        simple(Items.HARD_DRIVE_HUGE, "item/hard_drive_base")
+            .texture("layer1", "item/hard_drive_tint");
+        simple(Items.HARD_DRIVE_GIANT, "item/hard_drive_base")
+            .texture("layer1", "item/hard_drive_tint");
+        simple(Items.HARD_DRIVE_COLOSSAL, "item/hard_drive_base")
+            .texture("layer1", "item/hard_drive_tint");
+        simple(Items.HARD_DRIVE_TITANIC, "item/hard_drive_base")
+            .texture("layer1", "item/hard_drive_tint");
+        simple(Items.HARD_DRIVE_GARGANTUAN, "item/hard_drive_base")
+            .texture("layer1", "item/hard_drive_tint");
+        simple(Items.HARD_DRIVE_PLATTER);
+        simple(Items.HARD_DRIVE_PLATTER_HIGH_CAPACITY);
+        simple(Items.HARD_DRIVE_PLATTER_ULTRA_CAPACITY);
+        simple(Items.HARD_DRIVE_PLATTER_STACK_HUGE);
+        simple(Items.HARD_DRIVE_PLATTER_STACK_GIANT);
+        simple(Items.HARD_DRIVE_PLATTER_STACK_COLOSSAL);
+        simple(Items.HARD_DRIVE_PLATTER_STACK_TITANIC);
+        simple(Items.HARD_DRIVE_PLATTER_STACK_GARGANTUAN);
         simple(Items.FLASH_MEMORY, "item/flash_memory_base")
             .texture("layer1", "item/flash_memory_tint");
         simple(Items.FLOPPY, "item/floppy_base")
@@ -59,7 +80,9 @@ public final class ModItemModelProvider extends ItemModelProvider {
         simple(Items.TRANSISTOR);
         simple(Items.CIRCUIT_BOARD);
 
-        withExistingParent(Entities.ROBOT.getId().getPath(), "template_shulker_box");
+        for (final var robot : Items.ROBOTS) {
+            withExistingParent(robot.getId().getPath(), "template_shulker_box");
+        }
     }
 
     private <T extends Item> void simple(final RegistrySupplier<T> item) {

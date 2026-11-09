@@ -43,12 +43,20 @@ public final class ModItemTagsProvider extends ItemTagsProvider {
         tag(DEVICES_MEMORY).add(
             Items.MEMORY_SMALL.get(),
             Items.MEMORY_MEDIUM.get(),
-            Items.MEMORY_LARGE.get()
+            Items.MEMORY_LARGE.get(),
+            Items.MEMORY_HUGE.get(),
+            Items.MEMORY_GIANT.get(),
+            Items.MEMORY_COLOSSAL.get()
         );
         tag(DEVICES_HARD_DRIVE).add(
             Items.HARD_DRIVE_SMALL.get(),
             Items.HARD_DRIVE_MEDIUM.get(),
-            Items.HARD_DRIVE_LARGE.get()
+            Items.HARD_DRIVE_LARGE.get(),
+            Items.HARD_DRIVE_HUGE.get(),
+            Items.HARD_DRIVE_GIANT.get(),
+            Items.HARD_DRIVE_COLOSSAL.get(),
+            Items.HARD_DRIVE_TITANIC.get(),
+            Items.HARD_DRIVE_GARGANTUAN.get()
         );
         tag(DEVICES_FLASH_MEMORY).add(
             Items.FLASH_MEMORY.get()
@@ -94,10 +102,18 @@ public final class ModItemTagsProvider extends ItemTagsProvider {
             Items.HARD_DRIVE_SMALL.get(),
             Items.HARD_DRIVE_MEDIUM.get(),
             Items.HARD_DRIVE_LARGE.get(),
+            Items.HARD_DRIVE_HUGE.get(),
+            Items.HARD_DRIVE_GIANT.get(),
+            Items.HARD_DRIVE_COLOSSAL.get(),
+            Items.HARD_DRIVE_TITANIC.get(),
+            Items.HARD_DRIVE_GARGANTUAN.get(),
             Items.KEYBOARD.get(),
             Items.MEMORY_SMALL.get(),
             Items.MEMORY_MEDIUM.get(),
             Items.MEMORY_LARGE.get(),
+            Items.MEMORY_HUGE.get(),
+            Items.MEMORY_GIANT.get(),
+            Items.MEMORY_COLOSSAL.get(),
             Items.SERIAL_INTERFACE_CARD.get(),
             Items.NETWORK_INTERFACE_CARD.get(),
             Items.NETWORK_TUNNEL_CARD.get(),

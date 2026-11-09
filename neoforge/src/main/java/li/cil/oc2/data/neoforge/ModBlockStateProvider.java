@@ -50,6 +50,10 @@ public final class ModBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         horizontalBlock(Blocks.CHARGER, Items.CHARGER, CHARGER_MODEL);
         horizontalBlock(Blocks.COMPUTER, Items.COMPUTER, COMPUTER_MODEL);
+        // Higher and lower tier computers share the tier 2 computer's model.
+        tieredComputer(Blocks.COMPUTER_TIER_1, Items.COMPUTER_TIER_1);
+        tieredComputer(Blocks.COMPUTER_TIER_3, Items.COMPUTER_TIER_3);
+        tieredComputer(Blocks.COMPUTER_TIER_4, Items.COMPUTER_TIER_4);
         simpleBlock(Blocks.CREATIVE_ENERGY, Items.CREATIVE_ENERGY);
         horizontalBlock(Blocks.DISK_DRIVE, Items.DISK_DRIVE, DISK_DRIVE_MODEL);
         orientableBlock(Blocks.FLASH_DRIVE, Items.FLASH_DRIVE, FLASH_DRIVE_MODEL);
@@ -258,6 +262,11 @@ public final class ModBlockStateProvider extends BlockStateProvider {
     private <T extends Block> ItemModelBuilder horizontalBlock(final RegistrySupplier<T> block, final RegistrySupplier<Item> item, final ResourceLocation modelFileLocation) {
         horizontalBlock(block.get(), models().getExistingFile(modelFileLocation));
         return itemModels().getBuilder(item.getId().getPath()).parent(models().getExistingFile(block.getId()));
+    }
+
+    private <T extends Block> void tieredComputer(final RegistrySupplier<T> block, final RegistrySupplier<Item> item) {
+        horizontalBlock(block.get(), models().getExistingFile(COMPUTER_MODEL));
+        itemModels().getBuilder(item.getId().getPath()).parent(models().getExistingFile(Blocks.COMPUTER.getId()));
     }
 
     private <T extends Block> void simpleBlock(final RegistrySupplier<T> block, final RegistrySupplier<Item> item) {

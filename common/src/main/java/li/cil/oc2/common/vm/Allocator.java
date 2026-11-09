@@ -107,7 +107,7 @@ public final class Allocator {
         if (size < 0) {
             throw new IllegalArgumentException();
         }
-        return Config.maxAllocatedMemory - size >= allocated;
+        return Config.maxAllocatedMemory() - size >= allocated;
     }
 
     private static final class Allocation {

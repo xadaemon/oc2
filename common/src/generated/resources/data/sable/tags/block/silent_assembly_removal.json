@@ -2,7 +2,10 @@
   "values": [
     "oc2:bus_cable",
     "oc2:charger",
+    "oc2:computer_tier_1",
     "oc2:computer",
+    "oc2:computer_tier_3",
+    "oc2:computer_tier_4",
     "oc2:creative_energy",
     "oc2:disk_drive",
     "oc2:flash_drive",

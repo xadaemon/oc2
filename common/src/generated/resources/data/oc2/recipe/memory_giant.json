@@ -1,0 +1,23 @@
+{
+  "type": "oc2:high_memory",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "oc2:circuit_board"
+    },
+    "S": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "T": {
+      "item": "oc2:transistor"
+    }
+  },
+  "pattern": [
+    "STS",
+    "BBB"
+  ],
+  "result": {
+    "count": 2,
+    "id": "oc2:memory_giant"
+  }
+}

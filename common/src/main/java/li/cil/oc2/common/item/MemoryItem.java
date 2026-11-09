@@ -16,7 +16,11 @@ public final class MemoryItem extends AbstractStorageItem {
     // --------------------------------------------------------------------- //
 
     public MemoryItem(final IntSupplier defaultCapacity) {
-        super(defaultCapacity);
+        this(defaultCapacity, false);
+    }
+
+    public MemoryItem(final IntSupplier defaultCapacity, final boolean highCapacity) {
+        super(defaultCapacity, highCapacity);
     }
 
     // --------------------------------------------------------------------- //

@@ -4,6 +4,7 @@ package li.cil.oc2.common.entity;
 
 import li.cil.oc2.common.block.Blocks;
 import li.cil.oc2.common.block.ComputerBlock;
+import li.cil.oc2.common.block.ComputerBlock;
 import li.cil.oc2.common.blockentity.ComputerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -76,7 +77,7 @@ public final class CatBehaviorGoal extends MoveToBlockGoal {
         }
 
         cat.setInSittingPose(isReachedTarget());
-        if (isReachedTarget() && mob.level().getBlockState(blockPos).is(Blocks.COMPUTER.get())) {
+        if (isReachedTarget() && mob.level().getBlockState(blockPos).getBlock() instanceof ComputerBlock) {
             cat.getLookControl().setLookAt(Vec3.atCenterOf(blockPos));
         }
     }
@@ -95,7 +96,7 @@ public final class CatBehaviorGoal extends MoveToBlockGoal {
             return level.isEmptyBlock(pos.above());
         }
 
-        if (state.is(Blocks.COMPUTER.get())) {
+        if (state.getBlock() instanceof ComputerBlock) {
             final BlockPos front = pos.relative(state.getValue(ComputerBlock.FACING));
             return level.isEmptyBlock(front) &&
                 level.getBlockState(front.below()).isFaceSturdy(level, front.below(), Direction.UP) &&
@@ -109,7 +110,7 @@ public final class CatBehaviorGoal extends MoveToBlockGoal {
     @Override
     protected BlockPos getMoveToTarget() {
         final BlockState state = mob.level().getBlockState(blockPos);
-        if (state.is(Blocks.COMPUTER.get())) {
+        if (state.getBlock() instanceof ComputerBlock) {
             return blockPos.relative(state.getValue(ComputerBlock.FACING));
         }
         return super.getMoveToTarget();

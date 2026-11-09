@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "oc2:item/hard_drive_platter_stack_titanic"
+  }
+}

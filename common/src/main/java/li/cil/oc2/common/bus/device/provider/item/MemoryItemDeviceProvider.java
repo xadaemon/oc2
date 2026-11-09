@@ -24,6 +24,9 @@ public final class MemoryItemDeviceProvider extends AbstractItemDeviceProvider {
     protected Optional<ItemDevice> getItemDevice(final ItemDeviceQuery query) {
         final ItemStack stack = query.getItemStack();
         final MemoryItem item = (MemoryItem) stack.getItem();
+        if (!item.isAvailable()) {
+            return Optional.empty();
+        }
         final int capacity = Math.max(item.getCapacity(stack), 0);
         return Optional.of(new MemoryDevice(query.getItemStack(), capacity));
     }
@@ -32,6 +35,9 @@ public final class MemoryItemDeviceProvider extends AbstractItemDeviceProvider {
     protected int getItemDeviceEnergyConsumption(final ItemDeviceQuery query) {
         final ItemStack stack = query.getItemStack();
         final MemoryItem item = (MemoryItem) stack.getItem();
+        if (!item.isAvailable()) {
+            return 0;
+        }
         final int capacity = Math.max(item.getCapacity(stack), 0);
         return Math.max(1, (int) Math.round(capacity * Config.memoryEnergyPerMegabytePerTick / Constants.MEGABYTE));
     }

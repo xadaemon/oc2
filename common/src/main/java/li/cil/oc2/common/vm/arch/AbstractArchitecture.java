@@ -60,6 +60,15 @@ public abstract class AbstractArchitecture {
 
     public abstract int getFrequency();
 
+    /**
+     * Sets the processor's clock speed to the configured base speed scaled by {@code multiplier}.
+     */
+    public abstract void setClockMultiplier(double multiplier);
+
+    protected static int scaleFrequency(final int baseFrequency, final double multiplier) {
+        return (int) Math.max(1, Math.min(Integer.MAX_VALUE, Math.round(baseFrequency * multiplier)));
+    }
+
     public abstract SerialDevice getTerminalDevice();
 
     public abstract long getInstructionsRetired();

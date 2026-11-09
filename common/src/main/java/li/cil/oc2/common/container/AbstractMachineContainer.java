@@ -2,9 +2,13 @@
 
 package li.cil.oc2.common.container;
 
+import li.cil.oc2.api.bus.device.DeviceType;
 import li.cil.oc2.common.vm.PowerAction;
+import li.cil.oc2.common.vm.VMItemStackHandlers;
 import li.cil.oc2.common.vm.VirtualMachine;
 import net.minecraft.world.inventory.MenuType;
+
+import java.util.List;
 
 public abstract class AbstractMachineContainer extends AbstractContainer {
     protected static final int ENERGY_INFO_SIZE = 3;
@@ -25,6 +29,30 @@ public abstract class AbstractMachineContainer extends AbstractContainer {
 
         checkContainerDataCount(energyInfo, ENERGY_INFO_SIZE);
         addDataSlots(energyInfo);
+    }
+
+    /**
+     * Adds a slot for the first item of a device type, if the machine has one.
+     */
+    protected void addSingleSlot(final VMItemStackHandlers handlers, final DeviceType deviceType, final MachineSlotLayout.Position position) {
+        handlers.getItemHandler(deviceType).ifPresent(itemHandler -> {
+            if (itemHandler.getSlots() > 0) {
+                addSlot(new DeviceTypeSlotItemHandler(itemHandler, deviceType, 0, position.x(), position.y()));
+            }
+        });
+    }
+
+    /**
+     * Adds slots for the items of a device type, one per position, up to the number the machine has.
+     */
+    protected void addSlots(final VMItemStackHandlers handlers, final DeviceType deviceType, final List<MachineSlotLayout.Position> positions) {
+        handlers.getItemHandler(deviceType).ifPresent(itemHandler -> {
+            final int count = Math.min(itemHandler.getSlots(), positions.size());
+            for (int slot = 0; slot < count; slot++) {
+                final MachineSlotLayout.Position position = positions.get(slot);
+                addSlot(new DeviceTypeSlotItemHandler(itemHandler, deviceType, slot, position.x(), position.y()));
+            }
+        });
     }
 
     // --------------------------------------------------------------------- //

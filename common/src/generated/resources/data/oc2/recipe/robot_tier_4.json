@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "oc2:circuit_board"
+    },
+    "D": {
+      "tag": "c:storage_blocks/diamond"
+    },
+    "E": {
+      "tag": "c:chests/ender"
+    },
+    "N": {
+      "tag": "c:ingots/netherite"
+    },
+    "P": {
+      "item": "minecraft:sticky_piston"
+    },
+    "S": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "pattern": [
+    "NSN",
+    "PEP",
+    "DBD"
+  ],
+  "result": {
+    "count": 1,
+    "id": "oc2:robot_tier_4"
+  }
+}

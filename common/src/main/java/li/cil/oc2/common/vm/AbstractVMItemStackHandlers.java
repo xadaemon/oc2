@@ -179,6 +179,17 @@ public abstract class AbstractVMItemStackHandlers implements VMItemStackHandlers
 
     // --------------------------------------------------------------------- //
 
+    /**
+     * Whether the machine accepts the specified item in its device slots, beyond the slot's device type.
+     * <p>
+     * Used to limit which memory and hard drives a machine's tier accepts.
+     */
+    protected boolean isItemAllowed(final ItemStack stack) {
+        return true;
+    }
+
+    // --------------------------------------------------------------------- //
+
     private final class VMItemHandler extends AbstractTypedDeviceItemStackHandler {
         private final VMItemBusElement busElement;
 
@@ -190,6 +201,11 @@ public abstract class AbstractVMItemStackHandlers implements VMItemStackHandlers
         @Override
         public AbstractItemDeviceBusElement getBusElement() {
             return busElement;
+        }
+
+        @Override
+        public boolean isItemValid(final int slot, final ItemStack stack) {
+            return super.isItemValid(slot, stack) && isItemAllowed(stack);
         }
 
         @Override

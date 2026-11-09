@@ -27,6 +27,9 @@ public final class HardDriveItemDeviceProvider extends AbstractItemDeviceProvide
     @Override
     protected Optional<ItemDevice> getItemDevice(final ItemDeviceQuery query) {
         final ItemStack stack = query.getItemStack();
+        if (!((HardDriveItem) stack.getItem()).isAvailable()) {
+            return Optional.empty();
+        }
         final BlockDeviceData data = getData(query);
         return Optional.of(data != null
             ? new HardDriveDeviceWithInitialData(stack, data, false, LocationSupplierUtils.of(query))
@@ -35,6 +38,9 @@ public final class HardDriveItemDeviceProvider extends AbstractItemDeviceProvide
 
     @Override
     protected int getItemDeviceEnergyConsumption(final ItemDeviceQuery query) {
+        if (!((HardDriveItem) query.getItemStack().getItem()).isAvailable()) {
+            return 0;
+        }
         return Math.max(1, (int) Math.round(getCapacity(query) * Config.hardDriveEnergyPerMegabytePerTick / Constants.MEGABYTE));
     }
 

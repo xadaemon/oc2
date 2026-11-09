@@ -9,6 +9,13 @@ Usually computers use a firmware that requires some hard drive to complete the b
 
 Crafting either of these drives with a [wrench](wrench.md) wipes it back to an empty drive.
 
+Besides the 2M, 4M and 8M drives, there are high capacity drives of 16M, 32M, 64M, 128M and 256M. Each is built around a platter stack of its size, made by stacking platters around an iron spindle:
+- Platters, made from a layer of gold ingots, a layer of redstone and a layer of iron ingots, stack into 16M (2 platters), 32M (4) and 64M (8) stacks.
+- High capacity platters add netherite scrap and stack into 128M stacks (4 platters).
+- Ultra capacity platters add a netherite ingot and stack into 256M stacks (4 platters).
+
+Larger drives need higher tier machines: tier 1 [computers](../block/computer.md) and [robots](robot.md) take up to 4M drives, tier 2 up to 8M, tier 3 up to 64M and tier 4 up to 256M. The server can disable high capacity drives, platters and stacks with the `highMemoryMachines` setting. Wipe any of these drives by crafting it with a [wrench](wrench.md).
+
 OpenOS II and Linux show additional hard drives as `/dev/vdb`, `/dev/vdc` and so on. See the guides on how to format and mount them. CP/M does not support hard drives.
 
 Computers *have to be shut down* before installing or removing this component. Installing it while the computer is running will have no effect, removing it may lead to system errors.

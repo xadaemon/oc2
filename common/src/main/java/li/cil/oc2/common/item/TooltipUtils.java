@@ -13,6 +13,7 @@ import li.cil.oc2.common.capabilities.Capabilities;
 import li.cil.oc2.common.energy.EnergyHandler;
 import li.cil.oc2.common.tags.ItemTags;
 import li.cil.oc2.common.util.*;
+import li.cil.oc2.common.vm.MachineTier;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.HolderLookup;
@@ -118,6 +119,31 @@ public final class TooltipUtils {
 
         final MutableComponent value = withFormat(energy.getEnergyStored() + "/" + energy.getMaxEnergyStored(), ChatFormatting.GREEN);
         tooltip.add(withFormat(Component.translatable(Constants.TOOLTIP_ENERGY, value), ChatFormatting.GRAY));
+    }
+
+    /**
+     * Adds the slot counts, size limits and clock speed of a machine tier.
+     *
+     * @param tier    the tier of the machine.
+     * @param slots   the slots of the machine, as computers and robots differ.
+     * @param robot   whether expansion slots are robot modules instead of cards.
+     * @param tooltip the tooltip to add to.
+     */
+    public static void addMachineTierInformation(final MachineTier tier, final MachineTier.Slots slots, final boolean robot, final List<Component> tooltip) {
+        final MemoryItem memory = tier.getLargestMemory();
+        final HardDriveItem hardDrive = tier.getLargestHardDrive();
+        tooltip.add(withFormat(Component.translatable(Constants.TOOLTIP_MACHINE_TIER,
+            withFormat(String.valueOf(tier.getLevel()), ChatFormatting.GREEN)), ChatFormatting.GRAY));
+        tooltip.add(withFormat(Component.translatable(Constants.TOOLTIP_MACHINE_TIER_MEMORY,
+            withFormat(String.valueOf(slots.memory()), ChatFormatting.GREEN),
+            withFormat(TextFormatUtils.formatSize(memory.getCapacity(new ItemStack(memory))), ChatFormatting.GREEN)), ChatFormatting.GRAY));
+        tooltip.add(withFormat(Component.translatable(Constants.TOOLTIP_MACHINE_TIER_HARD_DRIVE,
+            withFormat(String.valueOf(slots.hardDrive()), ChatFormatting.GREEN),
+            withFormat(TextFormatUtils.formatSize(hardDrive.getCapacity(new ItemStack(hardDrive))), ChatFormatting.GREEN)), ChatFormatting.GRAY));
+        tooltip.add(withFormat(Component.translatable(robot ? Constants.TOOLTIP_MACHINE_TIER_MODULES : Constants.TOOLTIP_MACHINE_TIER_CARDS,
+            withFormat(String.valueOf(slots.expansion()), ChatFormatting.GREEN)), ChatFormatting.GRAY));
+        tooltip.add(withFormat(Component.translatable(Constants.TOOLTIP_MACHINE_TIER_CLOCK,
+            withFormat(TextFormatUtils.formatNumber(tier.getClockMultiplier()) + "x", ChatFormatting.GREEN)), ChatFormatting.GRAY));
     }
 
     public static void addEnergyConsumption(final double value, final List<Component> tooltip) {

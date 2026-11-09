@@ -5,16 +5,24 @@ package li.cil.oc2.data.neoforge;
 import li.cil.oc2.api.API;
 import li.cil.oc2.common.bus.device.data.BlockDeviceDataRegistry;
 import li.cil.oc2.common.item.Items;
+import li.cil.oc2.common.item.crafting.HighMemoryRecipe;
 import li.cil.oc2.common.item.crafting.ResetRecipe;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.conditions.ICondition;
 
+import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
 
 public final class ModRecipesProvider extends RecipeProvider {
@@ -24,6 +32,46 @@ public final class ModRecipesProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes(final RecipeOutput consumer) {
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.COMPUTER_TIER_1.get())
+            .pattern("KCK")
+            .pattern("KTK")
+            .pattern("KBK")
+            .define('K', Tags.Items.INGOTS_COPPER)
+            .define('C', Tags.Items.CHESTS_WOODEN)
+            .define('T', Items.TRANSISTOR.get())
+            .define('B', Items.CIRCUIT_BOARD.get())
+            .unlockedBy("has_transistor", inventoryChange(Items.TRANSISTOR.get()))
+            .unlockedBy("has_circuit_board", inventoryChange(Items.CIRCUIT_BOARD.get()))
+            .save(consumer);
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.COMPUTER_TIER_3.get())
+            .pattern("GCG")
+            .pattern("XDX")
+            .pattern("TBT")
+            .define('G', Tags.Items.INGOTS_GOLD)
+            .define('C', Tags.Items.CHESTS_WOODEN)
+            .define('X', Items.BUS_INTERFACE.get())
+            .define('D', Tags.Items.GEMS_DIAMOND)
+            .define('T', Items.TRANSISTOR.get())
+            .define('B', Items.CIRCUIT_BOARD.get())
+            .unlockedBy("has_computer", inventoryChange(Items.COMPUTER.get()))
+            .save(consumer);
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.COMPUTER_TIER_4.get())
+            .pattern("NSN")
+            .pattern("DED")
+            .pattern("NBN")
+            .define('N', Tags.Items.INGOTS_NETHERITE)
+            .define('S', net.minecraft.world.item.Items.NETHER_STAR)
+            .define('D', Tags.Items.STORAGE_BLOCKS_DIAMOND)
+            .define('E', Tags.Items.CHESTS_ENDER)
+            .define('B', Items.CIRCUIT_BOARD.get())
+            .unlockedBy("has_computer_tier_3", inventoryChange(Items.COMPUTER_TIER_3.get()))
+            .save(consumer);
+
         ShapedRecipeBuilder
             .shaped(RecipeCategory.MISC, Items.COMPUTER.get())
             .pattern("ICI")
@@ -231,6 +279,48 @@ public final class ModRecipesProvider extends RecipeProvider {
             .save(consumer);
 
         ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.ROBOT_TIER_1.get())
+            .pattern("KCK")
+            .pattern("PTP")
+            .pattern("KBK")
+            .define('K', Tags.Items.INGOTS_COPPER)
+            .define('C', Tags.Items.CHESTS_WOODEN)
+            .define('P', net.minecraft.world.item.Items.PISTON)
+            .define('T', Items.TRANSISTOR.get())
+            .define('B', Items.CIRCUIT_BOARD.get())
+            .unlockedBy("has_transistor", inventoryChange(Items.TRANSISTOR.get()))
+            .unlockedBy("has_circuit_board", inventoryChange(Items.CIRCUIT_BOARD.get()))
+            .save(consumer);
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.ROBOT_TIER_3.get())
+            .pattern("GCG")
+            .pattern("PDP")
+            .pattern("TBT")
+            .define('G', Tags.Items.INGOTS_GOLD)
+            .define('C', Tags.Items.CHESTS_WOODEN)
+            .define('P', net.minecraft.world.item.Items.PISTON)
+            .define('D', Tags.Items.GEMS_DIAMOND)
+            .define('T', Items.TRANSISTOR.get())
+            .define('B', Items.CIRCUIT_BOARD.get())
+            .unlockedBy("has_robot", inventoryChange(Items.ROBOT.get()))
+            .save(consumer);
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.ROBOT_TIER_4.get())
+            .pattern("NSN")
+            .pattern("PEP")
+            .pattern("DBD")
+            .define('N', Tags.Items.INGOTS_NETHERITE)
+            .define('S', net.minecraft.world.item.Items.NETHER_STAR)
+            .define('P', net.minecraft.world.item.Items.STICKY_PISTON)
+            .define('E', Tags.Items.CHESTS_ENDER)
+            .define('D', Tags.Items.STORAGE_BLOCKS_DIAMOND)
+            .define('B', Items.CIRCUIT_BOARD.get())
+            .unlockedBy("has_robot_tier_3", inventoryChange(Items.ROBOT_TIER_3.get()))
+            .save(consumer);
+
+        ShapedRecipeBuilder
             .shaped(RecipeCategory.MISC, Items.ROBOT.get())
             .pattern("ICI")
             .pattern("PTP")
@@ -303,6 +393,39 @@ public final class ModRecipesProvider extends RecipeProvider {
             .save(consumer);
 
         ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.MEMORY_HUGE.get(), 2)
+            .pattern("ETE")
+            .pattern("BBB")
+            .define('E', Tags.Items.GEMS_EMERALD)
+            .define('T', Items.TRANSISTOR.get())
+            .define('B', Items.CIRCUIT_BOARD.get())
+            .unlockedBy("has_computer", inventoryChange(Items.COMPUTER.get()))
+            .unlockedBy("has_robot", inventoryChange(Items.ROBOT.get()))
+            .save(highMemory(consumer));
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.MEMORY_GIANT.get(), 2)
+            .pattern("STS")
+            .pattern("BBB")
+            .define('S', net.minecraft.world.item.Items.NETHERITE_SCRAP)
+            .define('T', Items.TRANSISTOR.get())
+            .define('B', Items.CIRCUIT_BOARD.get())
+            .unlockedBy("has_computer", inventoryChange(Items.COMPUTER.get()))
+            .unlockedBy("has_robot", inventoryChange(Items.ROBOT.get()))
+            .save(highMemory(consumer));
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.MEMORY_COLOSSAL.get(), 2)
+            .pattern("NTN")
+            .pattern("BBB")
+            .define('N', Tags.Items.INGOTS_NETHERITE)
+            .define('T', Items.TRANSISTOR.get())
+            .define('B', Items.CIRCUIT_BOARD.get())
+            .unlockedBy("has_computer", inventoryChange(Items.COMPUTER.get()))
+            .unlockedBy("has_robot", inventoryChange(Items.ROBOT.get()))
+            .save(highMemory(consumer));
+
+        ShapedRecipeBuilder
             .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_SMALL.get())
             .pattern("ITI")
             .pattern("LBL")
@@ -365,6 +488,189 @@ public final class ModRecipesProvider extends RecipeProvider {
             .requires(Items.HARD_DRIVE_LARGE.get())
             .unlockedBy("has_hard_drive_large", inventoryChange(Items.HARD_DRIVE_LARGE.get()))
             .save(consumer, API.MOD_ID + ":hard_drive_large_erase");
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_PLATTER.get())
+            .pattern("GGG")
+            .pattern("RRR")
+            .pattern("III")
+            .define('G', Tags.Items.INGOTS_GOLD)
+            .define('R', Tags.Items.DUSTS_REDSTONE)
+            .define('I', Tags.Items.INGOTS_IRON)
+            .unlockedBy("has_computer", inventoryChange(Items.COMPUTER.get()))
+            .unlockedBy("has_robot", inventoryChange(Items.ROBOT.get()))
+            .save(highMemory(consumer));
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_PLATTER_HIGH_CAPACITY.get())
+            .pattern("GGG")
+            .pattern("RSR")
+            .pattern("III")
+            .define('G', Tags.Items.INGOTS_GOLD)
+            .define('R', Tags.Items.DUSTS_REDSTONE)
+            .define('S', net.minecraft.world.item.Items.NETHERITE_SCRAP)
+            .define('I', Tags.Items.INGOTS_IRON)
+            .unlockedBy("has_computer", inventoryChange(Items.COMPUTER.get()))
+            .unlockedBy("has_robot", inventoryChange(Items.ROBOT.get()))
+            .save(highMemory(consumer));
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_PLATTER_ULTRA_CAPACITY.get())
+            .pattern("GGG")
+            .pattern("RNR")
+            .pattern("III")
+            .define('G', Tags.Items.INGOTS_GOLD)
+            .define('R', Tags.Items.DUSTS_REDSTONE)
+            .define('N', Tags.Items.INGOTS_NETHERITE)
+            .define('I', Tags.Items.INGOTS_IRON)
+            .unlockedBy("has_computer", inventoryChange(Items.COMPUTER.get()))
+            .unlockedBy("has_robot", inventoryChange(Items.ROBOT.get()))
+            .save(highMemory(consumer));
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_PLATTER_STACK_HUGE.get())
+            .pattern("P")
+            .pattern("I")
+            .pattern("P")
+            .define('P', Items.HARD_DRIVE_PLATTER.get())
+            .define('I', Tags.Items.INGOTS_IRON)
+            .unlockedBy("has_platter", inventoryChange(Items.HARD_DRIVE_PLATTER.get()))
+            .save(highMemory(consumer));
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_HUGE.get())
+            .pattern("ITI")
+            .pattern("ISI")
+            .pattern("IBI")
+            .define('I', Tags.Items.INGOTS_IRON)
+            .define('T', Items.TRANSISTOR.get())
+            .define('B', Items.CIRCUIT_BOARD.get())
+            .define('S', Items.HARD_DRIVE_PLATTER_STACK_HUGE.get())
+            .unlockedBy("has_platter_stack", inventoryChange(Items.HARD_DRIVE_PLATTER_STACK_HUGE.get()))
+            .save(highMemory(consumer));
+
+        ToolRecipeBuilder
+            .toolRecipe(Items.HARD_DRIVE_HUGE.get())
+            .requires(Items.WRENCH.get())
+            .requires(Items.HARD_DRIVE_HUGE.get())
+            .unlockedBy("has_hard_drive_huge", inventoryChange(Items.HARD_DRIVE_HUGE.get()))
+            .save(consumer, API.MOD_ID + ":hard_drive_huge_erase");
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_PLATTER_STACK_GIANT.get())
+            .pattern(" P ")
+            .pattern("PIP")
+            .pattern(" P ")
+            .define('P', Items.HARD_DRIVE_PLATTER.get())
+            .define('I', Tags.Items.INGOTS_IRON)
+            .unlockedBy("has_platter", inventoryChange(Items.HARD_DRIVE_PLATTER.get()))
+            .save(highMemory(consumer));
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_GIANT.get())
+            .pattern("ITI")
+            .pattern("ISI")
+            .pattern("IBI")
+            .define('I', Tags.Items.INGOTS_IRON)
+            .define('T', Items.TRANSISTOR.get())
+            .define('B', Items.CIRCUIT_BOARD.get())
+            .define('S', Items.HARD_DRIVE_PLATTER_STACK_GIANT.get())
+            .unlockedBy("has_platter_stack", inventoryChange(Items.HARD_DRIVE_PLATTER_STACK_GIANT.get()))
+            .save(highMemory(consumer));
+
+        ToolRecipeBuilder
+            .toolRecipe(Items.HARD_DRIVE_GIANT.get())
+            .requires(Items.WRENCH.get())
+            .requires(Items.HARD_DRIVE_GIANT.get())
+            .unlockedBy("has_hard_drive_giant", inventoryChange(Items.HARD_DRIVE_GIANT.get()))
+            .save(consumer, API.MOD_ID + ":hard_drive_giant_erase");
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_PLATTER_STACK_COLOSSAL.get())
+            .pattern("PPP")
+            .pattern("PIP")
+            .pattern("PPP")
+            .define('P', Items.HARD_DRIVE_PLATTER.get())
+            .define('I', Tags.Items.INGOTS_IRON)
+            .unlockedBy("has_platter", inventoryChange(Items.HARD_DRIVE_PLATTER.get()))
+            .save(highMemory(consumer));
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_COLOSSAL.get())
+            .pattern("ITI")
+            .pattern("ISI")
+            .pattern("IBI")
+            .define('I', Tags.Items.INGOTS_IRON)
+            .define('T', Items.TRANSISTOR.get())
+            .define('B', Items.CIRCUIT_BOARD.get())
+            .define('S', Items.HARD_DRIVE_PLATTER_STACK_COLOSSAL.get())
+            .unlockedBy("has_platter_stack", inventoryChange(Items.HARD_DRIVE_PLATTER_STACK_COLOSSAL.get()))
+            .save(highMemory(consumer));
+
+        ToolRecipeBuilder
+            .toolRecipe(Items.HARD_DRIVE_COLOSSAL.get())
+            .requires(Items.WRENCH.get())
+            .requires(Items.HARD_DRIVE_COLOSSAL.get())
+            .unlockedBy("has_hard_drive_colossal", inventoryChange(Items.HARD_DRIVE_COLOSSAL.get()))
+            .save(consumer, API.MOD_ID + ":hard_drive_colossal_erase");
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_PLATTER_STACK_TITANIC.get())
+            .pattern(" P ")
+            .pattern("PIP")
+            .pattern(" P ")
+            .define('P', Items.HARD_DRIVE_PLATTER_HIGH_CAPACITY.get())
+            .define('I', Tags.Items.INGOTS_IRON)
+            .unlockedBy("has_platter", inventoryChange(Items.HARD_DRIVE_PLATTER_HIGH_CAPACITY.get()))
+            .save(highMemory(consumer));
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_TITANIC.get())
+            .pattern("ITI")
+            .pattern("ISI")
+            .pattern("IBI")
+            .define('I', Tags.Items.INGOTS_IRON)
+            .define('T', Items.TRANSISTOR.get())
+            .define('B', Items.CIRCUIT_BOARD.get())
+            .define('S', Items.HARD_DRIVE_PLATTER_STACK_TITANIC.get())
+            .unlockedBy("has_platter_stack", inventoryChange(Items.HARD_DRIVE_PLATTER_STACK_TITANIC.get()))
+            .save(highMemory(consumer));
+
+        ToolRecipeBuilder
+            .toolRecipe(Items.HARD_DRIVE_TITANIC.get())
+            .requires(Items.WRENCH.get())
+            .requires(Items.HARD_DRIVE_TITANIC.get())
+            .unlockedBy("has_hard_drive_titanic", inventoryChange(Items.HARD_DRIVE_TITANIC.get()))
+            .save(consumer, API.MOD_ID + ":hard_drive_titanic_erase");
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_PLATTER_STACK_GARGANTUAN.get())
+            .pattern(" P ")
+            .pattern("PIP")
+            .pattern(" P ")
+            .define('P', Items.HARD_DRIVE_PLATTER_ULTRA_CAPACITY.get())
+            .define('I', Tags.Items.INGOTS_IRON)
+            .unlockedBy("has_platter", inventoryChange(Items.HARD_DRIVE_PLATTER_ULTRA_CAPACITY.get()))
+            .save(highMemory(consumer));
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.HARD_DRIVE_GARGANTUAN.get())
+            .pattern("ITI")
+            .pattern("ISI")
+            .pattern("IBI")
+            .define('I', Tags.Items.INGOTS_IRON)
+            .define('T', Items.TRANSISTOR.get())
+            .define('B', Items.CIRCUIT_BOARD.get())
+            .define('S', Items.HARD_DRIVE_PLATTER_STACK_GARGANTUAN.get())
+            .unlockedBy("has_platter_stack", inventoryChange(Items.HARD_DRIVE_PLATTER_STACK_GARGANTUAN.get()))
+            .save(highMemory(consumer));
+
+        ToolRecipeBuilder
+            .toolRecipe(Items.HARD_DRIVE_GARGANTUAN.get())
+            .requires(Items.WRENCH.get())
+            .requires(Items.HARD_DRIVE_GARGANTUAN.get())
+            .unlockedBy("has_hard_drive_gargantuan", inventoryChange(Items.HARD_DRIVE_GARGANTUAN.get()))
+            .save(consumer, API.MOD_ID + ":hard_drive_gargantuan_erase");
 
         ShapedRecipeBuilder
             .shaped(RecipeCategory.MISC, Items.FLASH_MEMORY.get())
@@ -579,6 +885,20 @@ public final class ModRecipesProvider extends RecipeProvider {
             .requires(Items.TRANSISTOR.get())
             .unlockedBy("has_transistor", inventoryChange(Items.TRANSISTOR.get()))
             .save(consumer);
+    }
+
+    private static RecipeOutput highMemory(final RecipeOutput output) {
+        return new RecipeOutput() {
+            @Override
+            public Advancement.Builder advancement() {
+                return output.advancement();
+            }
+
+            @Override
+            public void accept(final ResourceLocation id, final Recipe<?> recipe, @Nullable final AdvancementHolder advancement, final ICondition... conditions) {
+                output.accept(id, new HighMemoryRecipe((ShapedRecipe) recipe), advancement, conditions);
+            }
+        };
     }
 
     private static Criterion<InventoryChangeTrigger.TriggerInstance> inventoryChange(final ItemLike item) {

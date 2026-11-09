@@ -23,7 +23,7 @@ public final class BlockEntities {
 
     public static final RegistrySupplier<BlockEntityType<BusCableBlockEntity>> BUS_CABLE = register(Blocks.BUS_CABLE, BusCableBlockEntity::new);
     public static final RegistrySupplier<BlockEntityType<ChargerBlockEntity>> CHARGER = register(Blocks.CHARGER, ChargerBlockEntity::new);
-    public static final RegistrySupplier<BlockEntityType<ComputerBlockEntity>> COMPUTER = register(Blocks.COMPUTER, ComputerBlockEntity::new);
+    public static final RegistrySupplier<BlockEntityType<ComputerBlockEntity>> COMPUTER = register(Blocks.COMPUTER, ComputerBlockEntity::new, Blocks.COMPUTERS);
     public static final RegistrySupplier<BlockEntityType<CreativeEnergyBlockEntity>> CREATIVE_ENERGY = register(Blocks.CREATIVE_ENERGY, CreativeEnergyBlockEntity::new);
     public static final RegistrySupplier<BlockEntityType<DiskDriveBlockEntity>> DISK_DRIVE = register(Blocks.DISK_DRIVE, DiskDriveBlockEntity::new);
     public static final RegistrySupplier<BlockEntityType<FlashDriveBlockEntity>> FLASH_DRIVE = register(Blocks.FLASH_DRIVE, FlashDriveBlockEntity::new);
@@ -46,6 +46,17 @@ public final class BlockEntities {
     }
 
     // --------------------------------------------------------------------- //
+
+    /**
+     * Registers a block entity type named after {@code block} that is valid for all {@code blocks}.
+     */
+    @SuppressWarnings("ConstantConditions") // .build(null) is fine
+    private static <B extends Block, T extends BlockEntity> RegistrySupplier<BlockEntityType<T>> register(final RegistrySupplier<B> block, final BlockEntityType.BlockEntitySupplier<T> factory, final List<? extends RegistrySupplier<? extends Block>> blocks) {
+        final RegistrySupplier<BlockEntityType<T>> type = BLOCK_ENTITIES.register(
+            block.getId().getPath(), () -> BlockEntityType.Builder.of(factory, blocks.stream().map(RegistrySupplier::get).toArray(Block[]::new)).build(null));
+        ALL.add(type);
+        return type;
+    }
 
     @SuppressWarnings("ConstantConditions") // .build(null) is fine
     private static <B extends Block, T extends BlockEntity> RegistrySupplier<BlockEntityType<T>> register(final RegistrySupplier<B> block, final BlockEntityType.BlockEntitySupplier<T> factory) {

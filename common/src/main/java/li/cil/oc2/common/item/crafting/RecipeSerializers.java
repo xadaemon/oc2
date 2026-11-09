@@ -15,6 +15,7 @@ public final class RecipeSerializers {
     // --------------------------------------------------------------------- //
 
     public static final RegistrySupplier<ToolRecipe.Serializer> TOOL = RECIPE_SERIALIZERS.register("tool", ToolRecipe.Serializer::new);
+    public static final RegistrySupplier<HighMemoryRecipe.Serializer> HIGH_MEMORY = RECIPE_SERIALIZERS.register("high_memory", HighMemoryRecipe.Serializer::new);
     public static final RegistrySupplier<SimpleCraftingRecipeSerializer<ResetRecipe>> RESET = RECIPE_SERIALIZERS.register("reset", () -> new SimpleCraftingRecipeSerializer<>(ResetRecipe::new));
 
     // --------------------------------------------------------------------- //

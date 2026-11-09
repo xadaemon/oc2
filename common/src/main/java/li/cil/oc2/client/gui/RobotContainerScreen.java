@@ -5,6 +5,7 @@ package li.cil.oc2.client.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.architectury.hooks.fluid.FluidStackHooks;
 import li.cil.oc2.client.gui.util.TooltipRenderer;
+import li.cil.oc2.client.gui.widget.Sprite;
 import li.cil.oc2.common.Constants;
 import li.cil.oc2.common.container.RobotInventoryContainer;
 import li.cil.oc2.common.fluid.FluidStack;
@@ -48,8 +49,8 @@ public final class RobotContainerScreen extends AbstractMachineInventoryScreen<R
 
     public RobotContainerScreen(final RobotInventoryContainer container, final Inventory playerInventory, final Component title) {
         super(container, playerInventory, title);
-        imageWidth = Sprites.ROBOT_CONTAINER.width;
-        imageHeight = Sprites.ROBOT_CONTAINER.height;
+        imageWidth = getBackground().width;
+        imageHeight = getBackground().height;
         inventoryLabelY = imageHeight - 94;
     }
 
@@ -59,7 +60,7 @@ public final class RobotContainerScreen extends AbstractMachineInventoryScreen<R
     protected void renderBg(final GuiGraphics graphics, final float partialTicks, final int mouseX, final int mouseY) {
         super.renderBg(graphics, partialTicks, mouseX, mouseY);
 
-        Sprites.ROBOT_CONTAINER.draw(graphics, leftPos, topPos);
+        getBackground().draw(graphics, leftPos, topPos);
         renderSelection(graphics, menu.getRobot().getSelectedSlot(), leftPos + INVENTORY_X, topPos + INVENTORY_Y, INVENTORY_COLUMNS);
         renderTank(graphics);
     }
@@ -80,6 +81,10 @@ public final class RobotContainerScreen extends AbstractMachineInventoryScreen<R
     }
 
     // --------------------------------------------------------------------- //
+
+    private Sprite getBackground() {
+        return Sprites.robotContainer(menu.getRobot().getTier());
+    }
 
     private void renderTank(final GuiGraphics graphics) {
         final FluidStack fluid = menu.getFluid();

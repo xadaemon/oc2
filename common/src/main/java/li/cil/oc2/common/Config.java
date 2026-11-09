@@ -14,7 +14,20 @@ import java.util.UUID;
 @Type(ConfigType.SERVER)
 public final class Config {
     @Path("vm")
-    public static long maxAllocatedMemory = 2L * 1024 * Constants.MEGABYTE;
+    @Min(0)
+    @Comment({
+        "Total memory, in bytes, all running machines may allocate together.",
+        "Zero for automatic: 2 GiB, or 8 GiB when high memory machines are enabled."
+    })
+    public static long maxAllocatedMemory = 0;
+
+    @Path("vm")
+    @Comment({
+        "Whether high capacity memory (16M to 64M by default) and hard drives (16M to 256M by",
+        "default), as well as hard drive platters, can be crafted and used. Lets machines have up",
+        "to 256M of RAM. Also raises the automatic total memory limit from 2 GiB to 8 GiB."
+    })
+    public static boolean highMemoryMachines = true;
 
     @Path("vm")
     @Min(0)
@@ -35,6 +48,23 @@ public final class Config {
     @Comment("Cycles a Z80 computer may retire per second, i.e. its clock speed.")
     public static int z80CycleBudgetPerSecond = 4_000_000;
 
+    @Path("vm.tiers")
+    @Min(0.01)
+    @Comment("Clock speed multiplier for tier 1 computers and robots. Also scales processor energy use.")
+    public static double tier1ClockMultiplier = 1.0;
+    @Path("vm.tiers")
+    @Min(0.01)
+    @Comment("Clock speed multiplier for tier 2 computers and robots. Also scales processor energy use.")
+    public static double tier2ClockMultiplier = 1.0;
+    @Path("vm.tiers")
+    @Min(0.01)
+    @Comment("Clock speed multiplier for tier 3 computers and robots. Also scales processor energy use.")
+    public static double tier3ClockMultiplier = 1.5;
+    @Path("vm.tiers")
+    @Min(0.01)
+    @Comment("Clock speed multiplier for tier 4 computers and robots. Also scales processor energy use.")
+    public static double tier4ClockMultiplier = 2.0;
+
     @Path("vm.sizes")
     @Min(1)
     @Comment("Capacity of small memory, in bytes.")
@@ -49,6 +79,18 @@ public final class Config {
     public static int memoryLargeSize = 8 * Constants.MEGABYTE;
     @Path("vm.sizes")
     @Min(1)
+    @Comment("Capacity of huge memory, in bytes.")
+    public static int memoryHugeSize = 16 * Constants.MEGABYTE;
+    @Path("vm.sizes")
+    @Min(1)
+    @Comment("Capacity of giant memory, in bytes.")
+    public static int memoryGiantSize = 32 * Constants.MEGABYTE;
+    @Path("vm.sizes")
+    @Min(1)
+    @Comment("Capacity of colossal memory, in bytes.")
+    public static int memoryColossalSize = 64 * Constants.MEGABYTE;
+    @Path("vm.sizes")
+    @Min(1)
     @Comment("Capacity of small hard drives, in bytes.")
     public static int hardDriveSmallSize = 2 * Constants.MEGABYTE;
     @Path("vm.sizes")
@@ -59,6 +101,26 @@ public final class Config {
     @Min(1)
     @Comment("Capacity of large hard drives, in bytes.")
     public static int hardDriveLargeSize = 8 * Constants.MEGABYTE;
+    @Path("vm.sizes")
+    @Min(1)
+    @Comment("Capacity of huge hard drives, in bytes.")
+    public static int hardDriveHugeSize = 16 * Constants.MEGABYTE;
+    @Path("vm.sizes")
+    @Min(1)
+    @Comment("Capacity of giant hard drives, in bytes.")
+    public static int hardDriveGiantSize = 32 * Constants.MEGABYTE;
+    @Path("vm.sizes")
+    @Min(1)
+    @Comment("Capacity of colossal hard drives, in bytes.")
+    public static int hardDriveColossalSize = 64 * Constants.MEGABYTE;
+    @Path("vm.sizes")
+    @Min(1)
+    @Comment("Capacity of titanic hard drives, in bytes.")
+    public static int hardDriveTitanicSize = 128 * Constants.MEGABYTE;
+    @Path("vm.sizes")
+    @Min(1)
+    @Comment("Capacity of gargantuan hard drives, in bytes.")
+    public static int hardDriveGargantuanSize = 256 * Constants.MEGABYTE;
     @Path("vm.sizes")
     @Min(1)
     @Comment("Capacity of floppy disks, in bytes.")
@@ -209,6 +271,13 @@ public final class Config {
     @Comment("Maximum throughput across all gateways on the server, in bytes per second, each way.")
     @Min(30280)
     public static int internetBytesPerSecondTotal = 512 * 1024;
+
+    public static long maxAllocatedMemory() {
+        if (maxAllocatedMemory > 0) {
+            return maxAllocatedMemory;
+        }
+        return (highMemoryMachines ? 8L : 2L) * Constants.GIGABYTE;
+    }
 
     public static int cpuEnergyPerTick(@Nullable final ArchitectureType architecture) {
         if (architecture == null) {

@@ -5,8 +5,11 @@ package li.cil.oc2.common.block;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import li.cil.oc2.common.util.RegistryUtils;
+import li.cil.oc2.common.vm.MachineTier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
+
+import java.util.List;
 
 public final class Blocks {
     private static final DeferredRegister<Block> BLOCKS = RegistryUtils.getInitializerFor(Registries.BLOCK);
@@ -15,7 +18,10 @@ public final class Blocks {
 
     public static final RegistrySupplier<BusCableBlock> BUS_CABLE = BLOCKS.register("bus_cable", BusCableBlock::new);
     public static final RegistrySupplier<ChargerBlock> CHARGER = BLOCKS.register("charger", ChargerBlock::new);
-    public static final RegistrySupplier<ComputerBlock> COMPUTER = BLOCKS.register("computer", ComputerBlock::new);
+    public static final RegistrySupplier<ComputerBlock> COMPUTER_TIER_1 = BLOCKS.register("computer_tier_1", () -> new ComputerBlock(MachineTier.TIER_1));
+    public static final RegistrySupplier<ComputerBlock> COMPUTER = BLOCKS.register("computer", () -> new ComputerBlock(MachineTier.TIER_2));
+    public static final RegistrySupplier<ComputerBlock> COMPUTER_TIER_3 = BLOCKS.register("computer_tier_3", () -> new ComputerBlock(MachineTier.TIER_3));
+    public static final RegistrySupplier<ComputerBlock> COMPUTER_TIER_4 = BLOCKS.register("computer_tier_4", () -> new ComputerBlock(MachineTier.TIER_4));
     public static final RegistrySupplier<CreativeEnergyBlock> CREATIVE_ENERGY = BLOCKS.register("creative_energy", CreativeEnergyBlock::new);
     public static final RegistrySupplier<DiskDriveBlock> DISK_DRIVE = BLOCKS.register("disk_drive", DiskDriveBlock::new);
     public static final RegistrySupplier<FlashDriveBlock> FLASH_DRIVE = BLOCKS.register("flash_drive", FlashDriveBlock::new);
@@ -27,6 +33,11 @@ public final class Blocks {
     public static final RegistrySupplier<RedstoneInterfaceBlock> REDSTONE_INTERFACE = BLOCKS.register("redstone_interface", RedstoneInterfaceBlock::new);
     public static final RegistrySupplier<TerminalBlock> TERMINAL = BLOCKS.register("terminal", TerminalBlock::new);
     public static final RegistrySupplier<TransposerBlock> TRANSPOSER = BLOCKS.register("transposer", TransposerBlock::new);
+
+    /**
+     * All computer blocks, ordered by tier.
+     */
+    public static final List<RegistrySupplier<ComputerBlock>> COMPUTERS = List.of(COMPUTER_TIER_1, COMPUTER, COMPUTER_TIER_3, COMPUTER_TIER_4);
 
     // --------------------------------------------------------------------- //
 

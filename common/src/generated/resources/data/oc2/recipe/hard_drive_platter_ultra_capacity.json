@@ -1,0 +1,27 @@
+{
+  "type": "oc2:high_memory",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "c:ingots/gold"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "N": {
+      "tag": "c:ingots/netherite"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "RNR",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "oc2:hard_drive_platter_ultra_capacity"
+  }
+}

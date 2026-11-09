@@ -82,6 +82,11 @@ public final class R5Architecture extends AbstractArchitecture {
     }
 
     @Override
+    public void setClockMultiplier(final double multiplier) {
+        board.getCpu().setFrequency(scaleFrequency(li.cil.oc2.common.Config.riscvCycleBudgetPerSecond, multiplier));
+    }
+
+    @Override
     public SerialDevice getTerminalDevice() {
         return builtinDevices.uart;
     }

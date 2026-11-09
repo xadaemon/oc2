@@ -38,7 +38,9 @@ public final class ModLootTableProvider extends LootTableProvider {
         @Override
         protected void generate() {
             dropSelf(Blocks.CHARGER.get());
-            dropSelf(Blocks.COMPUTER.get());
+            for (final var computer : Blocks.COMPUTERS) {
+                dropSelf(computer.get());
+            }
             dropSelf(Blocks.DISK_DRIVE.get());
             dropSelf(Blocks.FLASH_DRIVE.get());
             dropSelf(Blocks.KEYBOARD.get());

@@ -65,10 +65,7 @@ public final class ComputerBlockEntity extends ModBlockEntity implements Termina
     private static final String ENERGY_TAG_NAME = "energy";
 
     private static final int CPU_SLOTS = 1;
-    private static final int MEMORY_SLOTS = 4;
-    private static final int HARD_DRIVE_SLOTS = 4;
     private static final int FLASH_MEMORY_SLOTS = 1;
-    private static final int CARD_SLOTS = 4;
 
     private static final int MAX_RUNNING_SOUND_DELAY = TickUtils.toTicks(Duration.ofSeconds(2));
 
@@ -82,6 +79,9 @@ public final class ComputerBlockEntity extends ModBlockEntity implements Termina
     private LevelChunk chunk;
 
     // --------------------------------------------------------------------- //
+
+    // Must come before the device item handlers, which are sized by tier.
+    private final MachineTier tier = getBlockState().getBlock() instanceof final ComputerBlock block ? block.getTier() : MachineTier.TIER_2;
 
     private final Terminal terminal = new Terminal();
     private final ComputerBusElement busElement = new ComputerBusElement();
@@ -104,6 +104,11 @@ public final class ComputerBlockEntity extends ModBlockEntity implements Termina
 
         // Device scan can change our capability set (cards in the computer having capabilities).
         virtualMachine.getBusController().onAfterDeviceScan.add(this::handleAfterDeviceScan);
+        virtualMachine.setClockMultiplier(tier::getClockMultiplier);
+    }
+
+    public MachineTier getTier() {
+        return tier;
     }
 
     public Terminal getTerminal() {
@@ -397,7 +402,7 @@ public final class ComputerBlockEntity extends ModBlockEntity implements Termina
     // --------------------------------------------------------------------- //
 
     private int cpuEnergyPerTick() {
-        return Config.cpuEnergyPerTick(deviceItems.getArchitectureType().orElse(null));
+        return (int) Math.round(Config.cpuEnergyPerTick(deviceItems.getArchitectureType().orElse(null)) * tier.getClockMultiplier());
     }
 
     private void updateTerminalRecipients() {
@@ -467,11 +472,16 @@ public final class ComputerBlockEntity extends ModBlockEntity implements Termina
         public ComputerItemStackHandlers() {
             super(
                 new GroupDefinition(DeviceTypes.CPU.get(), CPU_SLOTS),
-                new GroupDefinition(DeviceTypes.MEMORY.get(), MEMORY_SLOTS),
-                new GroupDefinition(DeviceTypes.HARD_DRIVE.get(), HARD_DRIVE_SLOTS),
+                new GroupDefinition(DeviceTypes.MEMORY.get(), tier.getComputerSlots().memory()),
+                new GroupDefinition(DeviceTypes.HARD_DRIVE.get(), tier.getComputerSlots().hardDrive()),
                 new GroupDefinition(DeviceTypes.FLASH_MEMORY.get(), FLASH_MEMORY_SLOTS),
-                new GroupDefinition(DeviceTypes.CARD.get(), CARD_SLOTS)
+                new GroupDefinition(DeviceTypes.CARD.get(), tier.getComputerSlots().expansion())
             );
+        }
+
+        @Override
+        protected boolean isItemAllowed(final ItemStack stack) {
+            return tier.accepts(stack);
         }
 
         @Override

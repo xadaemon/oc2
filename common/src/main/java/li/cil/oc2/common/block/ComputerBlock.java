@@ -10,9 +10,9 @@ import li.cil.oc2.common.blockentity.ModBlockEntity;
 import li.cil.oc2.common.blockentity.TickableBlockEntity;
 import li.cil.oc2.common.capabilities.Capabilities;
 import li.cil.oc2.common.integration.Wrenches;
-import li.cil.oc2.common.item.Items;
 import li.cil.oc2.common.item.TooltipUtils;
 import li.cil.oc2.common.util.VoxelShapeUtils;
+import li.cil.oc2.common.vm.MachineTier;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
@@ -51,7 +51,7 @@ import java.util.List;
 
 
 public final class ComputerBlock extends HorizontalDirectionalBlock implements EntityBlock {
-    public static final MapCodec<ComputerBlock> CODEC = MapCodec.unit(ComputerBlock::new);
+    public static final MapCodec<ComputerBlock> CODEC = MachineTier.CODEC.fieldOf("tier").xmap(ComputerBlock::new, ComputerBlock::getTier);
 
     @Override
     protected MapCodec<? extends ComputerBlock> codec() {
@@ -73,14 +73,25 @@ public final class ComputerBlock extends HorizontalDirectionalBlock implements E
 
     // --------------------------------------------------------------------- //
 
-    public ComputerBlock() {
+    private final MachineTier tier;
+
+    // --------------------------------------------------------------------- //
+
+    public ComputerBlock(final MachineTier tier) {
         super(Properties
             .of()
             .mapColor(MapColor.METAL)
             .sound(SoundType.METAL)
             .strength(1.5f, 6.0f)
             .isRedstoneConductor((state, level, pos) -> false));
+        this.tier = tier;
         registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH));
+    }
+
+    // --------------------------------------------------------------------- //
+
+    public MachineTier getTier() {
+        return tier;
     }
 
     // --------------------------------------------------------------------- //
@@ -89,6 +100,7 @@ public final class ComputerBlock extends HorizontalDirectionalBlock implements E
     @Override
     public void appendHoverText(final ItemStack stack, final Item.TooltipContext context, final List<Component> tooltip, final TooltipFlag advanced) {
         super.appendHoverText(stack, context, tooltip, advanced);
+        TooltipUtils.addMachineTierInformation(tier, tier.getComputerSlots(), false, tooltip);
         TooltipUtils.addBlockEntityInventoryInformation(stack, tooltip);
     }
 
@@ -193,7 +205,7 @@ public final class ComputerBlock extends HorizontalDirectionalBlock implements E
         final List<ItemStack> drops = super.getDrops(state, builder);
         if (builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY) instanceof final ComputerBlockEntity computer) {
             for (final ItemStack drop : drops) {
-                if (drop.getItem() == Items.COMPUTER.get()) {
+                if (drop.getItem() == asItem()) {
                     computer.exportToItemStack(drop);
                 }
             }
@@ -210,7 +222,7 @@ public final class ComputerBlock extends HorizontalDirectionalBlock implements E
                 computer.getItemStackHandlers().exportDeviceDataToItemStacks();
 
                 if (player.isCreative()) {
-                    final ItemStack stack = new ItemStack(Items.COMPUTER.get());
+                    final ItemStack stack = new ItemStack(this);
                     computer.exportToItemStack(stack);
                     popResource(level, pos, stack);
                 }

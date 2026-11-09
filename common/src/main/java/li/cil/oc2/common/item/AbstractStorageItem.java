@@ -3,11 +3,13 @@
 package li.cil.oc2.common.item;
 
 import li.cil.oc2.common.Config;
+import li.cil.oc2.common.Constants;
 import li.cil.oc2.common.util.ItemStackUtils;
 import li.cil.oc2.common.util.NBTTagIds;
 import li.cil.oc2.common.util.TextFormatUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
@@ -23,16 +25,26 @@ public abstract class AbstractStorageItem extends ModItem {
     // --------------------------------------------------------------------- //
 
     private final IntSupplier defaultCapacity;
+    private final boolean highCapacity;
 
     // --------------------------------------------------------------------- //
 
-    protected AbstractStorageItem(final Properties properties, final IntSupplier defaultCapacity) {
+    protected AbstractStorageItem(final Properties properties, final IntSupplier defaultCapacity, final boolean highCapacity) {
         super(properties);
         this.defaultCapacity = defaultCapacity;
+        this.highCapacity = highCapacity;
+    }
+
+    protected AbstractStorageItem(final Properties properties, final IntSupplier defaultCapacity) {
+        this(properties, defaultCapacity, false);
+    }
+
+    protected AbstractStorageItem(final IntSupplier defaultCapacity, final boolean highCapacity) {
+        this(createProperties(), defaultCapacity, highCapacity);
     }
 
     protected AbstractStorageItem(final IntSupplier defaultCapacity) {
-        this(createProperties(), defaultCapacity);
+        this(defaultCapacity, false);
     }
 
     // --------------------------------------------------------------------- //
@@ -42,6 +54,9 @@ public abstract class AbstractStorageItem extends ModItem {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, context, tooltip, flag);
         TooltipUtils.addDataCorrupted(stack, tooltip);
+        if (!isAvailable()) {
+            tooltip.add(Component.translatable(Constants.TOOLTIP_HIGH_MEMORY_DISABLED).withStyle(ChatFormatting.RED));
+        }
     }
 
     @Override
@@ -55,6 +70,20 @@ public abstract class AbstractStorageItem extends ModItem {
     }
 
     // --------------------------------------------------------------------- //
+
+    /**
+     * Whether this item is high capacity storage, which requires {@link Config#highMemoryMachines}.
+     */
+    public boolean isHighCapacity() {
+        return highCapacity;
+    }
+
+    /**
+     * Whether machines may currently use this item.
+     */
+    public boolean isAvailable() {
+        return !highCapacity || Config.highMemoryMachines;
+    }
 
     public int getCapacity(final ItemStack stack) {
         final CompoundTag tag = ItemStackUtils.getModDataTag(stack);

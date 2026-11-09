@@ -112,11 +112,8 @@ public final class Robot extends Entity implements li.cil.oc2.api.capabilities.R
     private static final int MAX_QUEUED_RESULTS = 16;
 
     private static final int CPU_SLOTS = 1;
-    private static final int MEMORY_SLOTS = 4;
-    private static final int HARD_DRIVE_SLOTS = 1;
     private static final int FLOPPY_SLOTS = 1;
     private static final int FLASH_MEMORY_SLOTS = 1;
-    private static final int MODULE_SLOTS = 4;
     private static final int INVENTORY_SIZE = 12;
     private static final int TANK_CAPACITY = 12 * FluidHandler.BUCKET;
 
@@ -132,6 +129,9 @@ public final class Robot extends Entity implements li.cil.oc2.api.capabilities.R
     @Nullable
     private AABB lastContainingBlockSweepBounds;
     private int containingBlockSweepCountdown;
+
+    // Must come before the device item handlers, which are sized by tier.
+    private final MachineTier tier = Entities.robotTier(getType());
 
     private final AnimationState animationState = new AnimationState();
     private final RobotActionProcessor actionProcessor = new RobotActionProcessor();
@@ -163,6 +163,7 @@ public final class Robot extends Entity implements li.cil.oc2.api.capabilities.R
         }
 
         virtualMachine.setGameTimeSource(LevelUtils.gameTimeSupplier(world));
+        virtualMachine.setClockMultiplier(tier::getClockMultiplier);
         virtualMachine.getBusController().onAfterDeviceScan.add(this::handleAfterDeviceScan);
     }
 
@@ -171,6 +172,10 @@ public final class Robot extends Entity implements li.cil.oc2.api.capabilities.R
     @Environment(EnvType.CLIENT)
     public AnimationState getAnimationState() {
         return animationState;
+    }
+
+    public MachineTier getTier() {
+        return tier;
     }
 
     public Terminal getTerminal() {
@@ -317,7 +322,7 @@ public final class Robot extends Entity implements li.cil.oc2.api.capabilities.R
             return;
         }
 
-        final ItemStack stack = new ItemStack(Items.ROBOT.get());
+        final ItemStack stack = new ItemStack(Items.ROBOTS.get(tier.getLevel() - 1).get());
         exportToItemStack(stack);
         spawnAtLocation(stack);
 
@@ -552,7 +557,7 @@ public final class Robot extends Entity implements li.cil.oc2.api.capabilities.R
     // --------------------------------------------------------------------- //
 
     private int cpuEnergyPerTick() {
-        return Config.robotCpuEnergyPerTick(deviceItems.getArchitectureType().orElse(null));
+        return (int) Math.round(Config.robotCpuEnergyPerTick(deviceItems.getArchitectureType().orElse(null)) * tier.getClockMultiplier());
     }
 
     @Environment(EnvType.CLIENT)
@@ -926,12 +931,17 @@ public final class Robot extends Entity implements li.cil.oc2.api.capabilities.R
         public RobotItemStackHandlers() {
             super(
                 new GroupDefinition(DeviceTypes.CPU.get(), CPU_SLOTS),
-                new GroupDefinition(DeviceTypes.MEMORY.get(), MEMORY_SLOTS),
-                new GroupDefinition(DeviceTypes.HARD_DRIVE.get(), HARD_DRIVE_SLOTS),
+                new GroupDefinition(DeviceTypes.MEMORY.get(), tier.getRobotSlots().memory()),
+                new GroupDefinition(DeviceTypes.HARD_DRIVE.get(), tier.getRobotSlots().hardDrive()),
                 new GroupDefinition(DeviceTypes.FLOPPY.get(), FLOPPY_SLOTS),
                 new GroupDefinition(DeviceTypes.FLASH_MEMORY.get(), FLASH_MEMORY_SLOTS),
-                new GroupDefinition(DeviceTypes.ROBOT_MODULE.get(), MODULE_SLOTS)
+                new GroupDefinition(DeviceTypes.ROBOT_MODULE.get(), tier.getRobotSlots().expansion())
             );
+        }
+
+        @Override
+        protected boolean isItemAllowed(final ItemStack stack) {
+            return tier.accepts(stack);
         }
 
         @Override
