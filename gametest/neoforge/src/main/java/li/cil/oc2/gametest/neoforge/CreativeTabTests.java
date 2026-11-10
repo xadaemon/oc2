@@ -3,6 +3,7 @@
 package li.cil.oc2.gametest.neoforge;
 
 import li.cil.oc2.common.item.CreativeTabItemProvider;
+import li.cil.oc2.common.item.ItemGroup;
 import li.cil.oc2.common.item.Items;
 import li.cil.oc2.common.util.ItemStackUtils;
 import net.minecraft.core.HolderLookup;
@@ -29,6 +30,16 @@ public final class CreativeTabTests {
     public static void machinesAreOfferedWithoutParts(final GameTestHelper helper) {
         requirePlainVariant(helper, Items.COMPUTER.get(), "computer");
         requirePlainVariant(helper, Items.ROBOT.get(), "robot");
+
+        helper.succeed();
+    }
+
+    @GameTest(template = TEMPLATE)
+    public static void everyItemBelongsToACreativeTabGroup(final GameTestHelper helper) {
+        final List<Item> ungrouped = ItemGroup.getUngroupedItems();
+        if (!ungrouped.isEmpty()) {
+            throw new GameTestAssertException("items missing from the creative tab groups in ItemGroup: " + ungrouped);
+        }
 
         helper.succeed();
     }
