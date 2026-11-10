@@ -265,8 +265,11 @@ public final class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private <T extends Block> void tieredComputer(final RegistrySupplier<T> block, final RegistrySupplier<Item> item) {
-        horizontalBlock(block.get(), models().getExistingFile(COMPUTER_MODEL));
-        itemModels().getBuilder(item.getId().getPath()).parent(models().getExistingFile(Blocks.COMPUTER.getId()));
+        final String name = block.getId().getPath();
+        final var model = models().withExistingParent(name, COMPUTER_MODEL)
+            .texture("atlas", ResourceLocation.fromNamespaceAndPath(API.MOD_ID, "block/" + name));
+        horizontalBlock(block.get(), model);
+        itemModels().getBuilder(item.getId().getPath()).parent(model);
     }
 
     private <T extends Block> void simpleBlock(final RegistrySupplier<T> block, final RegistrySupplier<Item> item) {

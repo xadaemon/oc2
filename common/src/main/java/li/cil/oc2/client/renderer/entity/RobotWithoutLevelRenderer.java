@@ -5,6 +5,8 @@ package li.cil.oc2.client.renderer.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import li.cil.oc2.client.renderer.entity.model.RobotModel;
+import li.cil.oc2.common.item.RobotItem;
+import li.cil.oc2.common.vm.MachineTier;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -31,7 +33,8 @@ public final class RobotWithoutLevelRenderer extends BlockEntityWithoutLevelRend
 
         poseStack.translate(0.5, 0, 0.5);
 
-        final VertexConsumer consumer = bufferSource.getBuffer(model.renderType(RobotModel.ROBOT_ENTITY_TEXTURE));
+        final MachineTier tier = itemStack.getItem() instanceof final RobotItem robot ? robot.getTier() : MachineTier.TIER_2;
+        final VertexConsumer consumer = bufferSource.getBuffer(model.renderType(RobotModel.texture(tier)));
         model.renderToBuffer(poseStack, consumer, combinedLight, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
 
         poseStack.popPose();

@@ -9,6 +9,7 @@ import li.cil.oc2.client.renderer.ModRenderType;
 import li.cil.oc2.client.renderer.Overlays;
 import li.cil.oc2.client.renderer.entity.model.RobotModel;
 import li.cil.oc2.common.entity.Robot;
+import li.cil.oc2.common.vm.MachineTier;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -22,6 +23,7 @@ import org.joml.Vector3f;
 public final class RobotRenderer extends EntityRenderer<Robot> {
     private static final Vector3f GLOW_COLOR = new Vector3f(0.16f, 0.43f, 0.45f);
     private static final Vector3f GLOW_COLOR_BRIGHT = new Vector3f(0.35f, 0.95f, 1f);
+    private static final float GLOW_DIM = 0.45f;
 
     private static final AABB GLOW_BOUNDS = new AABB(-6.25 / 16.0, 7 / 16.0, -6.25 / 16.0, 6.25 / 16.0, 8 / 16.0, 6.25 / 16.0);
 
@@ -44,7 +46,7 @@ public final class RobotRenderer extends EntityRenderer<Robot> {
 
     @Override
     public ResourceLocation getTextureLocation(final Robot entity) {
-        return RobotModel.ROBOT_ENTITY_TEXTURE;
+        return RobotModel.texture(entity.getTier());
     }
 
     @Override
@@ -77,13 +79,20 @@ public final class RobotRenderer extends EntityRenderer<Robot> {
 
         if (topY > Robot.AnimationState.TOP_IDLE_Y) {
             stack.translate(0, baseY, 0);
-            Overlays.renderBox(ModRenderType.getGlow(), stack, bufferSource, GLOW_BOUNDS, GLOW_COLOR, GLOW_COLOR_BRIGHT, gameTime, partialTicks);
+            final MachineTier tier = entity.getTier();
+            final Vector3f bright = tier == MachineTier.TIER_2 ? GLOW_COLOR_BRIGHT : toVector(tier.getColor());
+            final Vector3f dim = tier == MachineTier.TIER_2 ? GLOW_COLOR : new Vector3f(bright).mul(GLOW_DIM);
+            Overlays.renderBox(ModRenderType.getGlow(), stack, bufferSource, GLOW_BOUNDS, dim, bright, gameTime, partialTicks);
         }
 
         stack.popPose();
     }
 
     // --------------------------------------------------------------------- //
+
+    private static Vector3f toVector(final int color) {
+        return new Vector3f((color >>> 16) / 255f, ((color >>> 8) & 0xFF) / 255f, (color & 0xFF) / 255f);
+    }
 
     private static void renderStatusLights(final PoseStack stack, final MultiBufferSource bufferSource, final int color, final float value) {
         if (value <= 0) {

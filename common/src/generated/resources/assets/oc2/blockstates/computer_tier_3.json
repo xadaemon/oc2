@@ -1,18 +1,18 @@
 {
   "variants": {
     "facing=east": {
-      "model": "oc2:block/computer",
+      "model": "oc2:block/computer_tier_3",
       "y": 90
     },
     "facing=north": {
-      "model": "oc2:block/computer"
+      "model": "oc2:block/computer_tier_3"
     },
     "facing=south": {
-      "model": "oc2:block/computer",
+      "model": "oc2:block/computer_tier_3",
       "y": 180
     },
     "facing=west": {
-      "model": "oc2:block/computer",
+      "model": "oc2:block/computer_tier_3",
       "y": 270
     }
   }

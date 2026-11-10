@@ -23,10 +23,10 @@ import java.util.List;
  * the original computer and robot, so machines placed before tiers existed keep their layout.
  */
 public enum MachineTier {
-    TIER_1(1, new Slots(2, 2, 2), new Slots(2, 1, 2), 2, 2),
-    TIER_2(2, new Slots(4, 4, 4), new Slots(4, 1, 4), 3, 3),
-    TIER_3(3, new Slots(4, 4, 4), new Slots(4, 2, 4), 5, 6),
-    TIER_4(4, new Slots(6, 6, 6), new Slots(6, 3, 6), 6, 8);
+    TIER_1(1, new Slots(2, 2, 2), new Slots(2, 1, 2), 2, 2, 0xD08A4E),
+    TIER_2(2, new Slots(4, 4, 4), new Slots(4, 1, 4), 3, 3, 0x4FC3C3),
+    TIER_3(3, new Slots(4, 4, 4), new Slots(4, 2, 4), 5, 6, 0x6F9BF2),
+    TIER_4(4, new Slots(6, 6, 6), new Slots(6, 3, 6), 6, 8, 0xC57FF2);
 
     /**
      * Slot counts of one kind of machine.
@@ -53,21 +53,33 @@ public enum MachineTier {
     private final Slots robotSlots;
     private final int maxMemoryLevel;
     private final int maxHardDriveLevel;
+    private final int color;
 
     // --------------------------------------------------------------------- //
 
-    MachineTier(final int level, final Slots computerSlots, final Slots robotSlots, final int maxMemoryLevel, final int maxHardDriveLevel) {
+    MachineTier(final int level, final Slots computerSlots, final Slots robotSlots, final int maxMemoryLevel, final int maxHardDriveLevel, final int color) {
         this.level = level;
         this.computerSlots = computerSlots;
         this.robotSlots = robotSlots;
         this.maxMemoryLevel = maxMemoryLevel;
         this.maxHardDriveLevel = maxHardDriveLevel;
+        this.color = color;
     }
 
     // --------------------------------------------------------------------- //
 
     public int getLevel() {
         return level;
+    }
+
+    /**
+     * The colour identifying this tier, as 0xRRGGBB.
+     * <p>
+     * Used for item names and tooltips. The machine textures and inventory screens use the same hues:
+     * bronze, teal, blue and purple.
+     */
+    public int getColor() {
+        return color;
     }
 
     public Slots getComputerSlots() {

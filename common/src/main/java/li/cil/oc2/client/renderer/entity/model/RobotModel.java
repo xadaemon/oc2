@@ -6,6 +6,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import li.cil.oc2.api.API;
 import li.cil.oc2.common.entity.Robot;
+import li.cil.oc2.common.vm.MachineTier;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -19,9 +20,19 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.joml.Quaternionf;
 
+import java.util.Arrays;
+
 public final class RobotModel extends EntityModel<Robot> {
     public static final ModelLayerLocation ROBOT_MODEL_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(API.MOD_ID, "robot"), "main");
     public static final ResourceLocation ROBOT_ENTITY_TEXTURE = ResourceLocation.fromNamespaceAndPath(API.MOD_ID, "textures/entity/robot/robot.png");
+    private static final ResourceLocation[] ROBOT_ENTITY_TEXTURES = Arrays.stream(MachineTier.values())
+        .map(tier -> tier == MachineTier.TIER_2 ? ROBOT_ENTITY_TEXTURE
+            : ResourceLocation.fromNamespaceAndPath(API.MOD_ID, "textures/entity/robot/robot_tier_" + tier.getLevel() + ".png"))
+        .toArray(ResourceLocation[]::new);
+
+    public static ResourceLocation texture(final MachineTier tier) {
+        return ROBOT_ENTITY_TEXTURES[tier.ordinal()];
+    }
 
     // --------------------------------------------------------------------- //
 

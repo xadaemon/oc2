@@ -52,6 +52,11 @@ public final class RobotItem extends ModItem implements CreativeTabItemProvider 
     }
 
     @Override
+    public Component getName(final ItemStack stack) {
+        return super.getName(stack).copy().withColor(tier.getColor());
+    }
+
+    @Override
     public void addCreativeTabItems(final CreativeModeTab.ItemDisplayParameters parameters, final CreativeModeTab.Output output) {
         output.accept(new ItemStack(this));
         // The preconfigured robot's parts fit the original robot, which is tier 2.

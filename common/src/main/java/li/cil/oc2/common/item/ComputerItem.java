@@ -11,6 +11,7 @@ import li.cil.oc2.common.util.NBTUtils;
 import li.cil.oc2.common.vm.MachineTier;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -26,6 +27,14 @@ public final class ComputerItem extends ModBlockItem implements CreativeTabItemP
     }
 
     // --------------------------------------------------------------------- //
+
+    @Override
+    public Component getName(final ItemStack stack) {
+        if (getBlock() instanceof final ComputerBlock computer) {
+            return super.getName(stack).copy().withColor(computer.getTier().getColor());
+        }
+        return super.getName(stack);
+    }
 
     @Override
     public void addCreativeTabItems(final CreativeModeTab.ItemDisplayParameters parameters, final CreativeModeTab.Output output) {

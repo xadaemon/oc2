@@ -133,7 +133,7 @@ public final class TooltipUtils {
         final MemoryItem memory = tier.getLargestMemory();
         final HardDriveItem hardDrive = tier.getLargestHardDrive();
         tooltip.add(withFormat(Component.translatable(Constants.TOOLTIP_MACHINE_TIER,
-            withFormat(String.valueOf(tier.getLevel()), ChatFormatting.GREEN)), ChatFormatting.GRAY));
+            Component.literal(String.valueOf(tier.getLevel())).withColor(tier.getColor())), ChatFormatting.GRAY));
         tooltip.add(withFormat(Component.translatable(Constants.TOOLTIP_MACHINE_TIER_MEMORY,
             withFormat(String.valueOf(slots.memory()), ChatFormatting.GREEN),
             withFormat(TextFormatUtils.formatSize(memory.getCapacity(new ItemStack(memory))), ChatFormatting.GREEN)), ChatFormatting.GRAY));

@@ -1,0 +1,6 @@
+{
+  "parent": "oc2:block/computer",
+  "textures": {
+    "atlas": "oc2:block/computer_tier_1"
+  }
+}
