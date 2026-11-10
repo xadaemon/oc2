@@ -21,13 +21,14 @@ import java.util.List;
  * <p>
  * A tier decides how many memory, hard drive and expansion (card or module) slots a machine has,
  * the largest memory and hard drive it accepts, and how fast its processor runs. Tier 2 matches
- * the original computer and robot, so machines placed before tiers existed keep their layout.
+ * the original computer and robot, so machines placed before tiers existed keep their layout. Tier 3
+ * and 4 machines have the same slots, and only differ in the parts they accept and their speed.
  */
 public enum MachineTier {
     TIER_1(1, new Slots(2, 2, 2), new Slots(2, 1, 2), 2, 2, 1, 0xD08A4E),
     TIER_2(2, new Slots(4, 4, 4), new Slots(4, 1, 4), 3, 3, 1, 0x4FC3C3),
     TIER_3(3, new Slots(4, 4, 4), new Slots(4, 2, 4), 5, 6, 2, 0x6F9BF2),
-    TIER_4(4, new Slots(6, 6, 6), new Slots(6, 3, 6), 6, 8, 3, 0xC57FF2);
+    TIER_4(4, new Slots(4, 4, 4), new Slots(4, 2, 4), 6, 8, 3, 0xC57FF2);
 
     /**
      * Slot counts of one kind of machine.

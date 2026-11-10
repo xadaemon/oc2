@@ -63,11 +63,12 @@ public final class ModRecipesProvider extends RecipeProvider {
             .shaped(RecipeCategory.MISC, Items.COMPUTER_TIER_4.get())
             .pattern("NSN")
             .pattern("DED")
-            .pattern("NBN")
+            .pattern("TBT")
             .define('N', Tags.Items.INGOTS_NETHERITE)
             .define('S', net.minecraft.world.item.Items.NETHER_STAR)
             .define('D', Tags.Items.STORAGE_BLOCKS_DIAMOND)
             .define('E', Tags.Items.CHESTS_ENDER)
+            .define('T', Items.TRANSISTOR.get())
             .define('B', Items.CIRCUIT_BOARD.get())
             .unlockedBy("has_computer_tier_3", inventoryChange(Items.COMPUTER_TIER_3.get()))
             .save(consumer);
@@ -370,7 +371,7 @@ public final class ModRecipesProvider extends RecipeProvider {
             .define('S', net.minecraft.world.item.Items.NETHER_STAR)
             .define('P', net.minecraft.world.item.Items.STICKY_PISTON)
             .define('E', Tags.Items.CHESTS_ENDER)
-            .define('D', Tags.Items.STORAGE_BLOCKS_DIAMOND)
+            .define('D', Tags.Items.GEMS_DIAMOND)
             .define('B', Items.CIRCUIT_BOARD.get())
             .unlockedBy("has_robot_tier_3", inventoryChange(Items.ROBOT_TIER_3.get()))
             .save(consumer);

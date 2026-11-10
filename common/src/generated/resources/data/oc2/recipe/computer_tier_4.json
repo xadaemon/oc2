@@ -16,12 +16,15 @@
     },
     "S": {
       "item": "minecraft:nether_star"
+    },
+    "T": {
+      "item": "oc2:transistor"
     }
   },
   "pattern": [
     "NSN",
     "DED",
-    "NBN"
+    "TBT"
   ],
   "result": {
     "count": 1,

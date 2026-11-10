@@ -9,10 +9,10 @@ public final class Textures {
     public static final Texture ROBOT_CONTAINER_TEXTURE = new Texture("textures/gui/widget/robot_container.png", 176, 197);
     public static final Texture COMPUTER_CONTAINER_TIER_1_TEXTURE = new Texture("textures/gui/widget/computer_container_tier_1.png", 176, 197);
     public static final Texture COMPUTER_CONTAINER_TIER_3_TEXTURE = new Texture("textures/gui/widget/computer_container_tier_3.png", 176, 197);
-    public static final Texture COMPUTER_CONTAINER_TIER_4_TEXTURE = new Texture("textures/gui/widget/computer_container_tier_4.png", 176, 233);
+    public static final Texture COMPUTER_CONTAINER_TIER_4_TEXTURE = new Texture("textures/gui/widget/computer_container_tier_4.png", 176, 197);
     public static final Texture ROBOT_CONTAINER_TIER_1_TEXTURE = new Texture("textures/gui/widget/robot_container_tier_1.png", 176, 197);
     public static final Texture ROBOT_CONTAINER_TIER_3_TEXTURE = new Texture("textures/gui/widget/robot_container_tier_3.png", 176, 197);
-    public static final Texture ROBOT_CONTAINER_TIER_4_TEXTURE = new Texture("textures/gui/widget/robot_container_tier_4.png", 176, 233);
+    public static final Texture ROBOT_CONTAINER_TIER_4_TEXTURE = new Texture("textures/gui/widget/robot_container_tier_4.png", 176, 197);
     public static final Texture TERMINAL_SCREEN_TEXTURE = new Texture("textures/gui/widget/terminal_screen.png", 336, 208);
     public static final Texture BUS_INTERFACE_SCREEN_TEXTURE = new Texture("textures/gui/widget/bus_interface_screen.png", 240, 30);
     public static final Texture SIDED_DEVICE_SCREEN_TEXTURE = new Texture("textures/gui/widget/sided_device_screen.png", 176, 150);

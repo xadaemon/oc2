@@ -12,8 +12,8 @@ import java.util.List;
  * Where a machine's device slots sit in its inventory screen, per tier.
  * <p>
  * The inventory screen backgrounds are drawn to match these positions, so the two have to be
- * changed together. Tiers 2 and 3 of the computer, and tier 2 of the robot, keep the original
- * layout.
+ * changed together. Tiers 2 to 4 of the computer, and tier 2 of the robot, keep the original
+ * layout. Tiers 3 and 4 of the robot add a second hard drive slot below the first.
  *
  * @param cpu              the processor slot.
  * @param flashMemory      the flash memory slot.
@@ -42,24 +42,11 @@ public record MachineSlotLayout(
     private static final int SLOT_SIZE = 18;
     private static final int DEFAULT_PLAYER_INVENTORY_Y = 115;
     private static final int DEFAULT_HEIGHT = 197;
-    private static final int TALL_EXTRA_HEIGHT = 36;
 
     // --------------------------------------------------------------------- //
 
     public static MachineSlotLayout computer(final MachineTier tier) {
         final MachineTier.Slots slots = tier.getComputerSlots();
-        if (tier == MachineTier.TIER_4) {
-            return new MachineSlotLayout(
-                new Position(52, 60),
-                new Position(52, 86),
-                row(52, 24, slots.memory()),
-                grid(88, 60, 3, slots.hardDrive()),
-                column(26, 24, slots.expansion()),
-                null,
-                DEFAULT_PLAYER_INVENTORY_Y + TALL_EXTRA_HEIGHT,
-                DEFAULT_HEIGHT + TALL_EXTRA_HEIGHT);
-        }
-
         return new MachineSlotLayout(
             new Position(64, 52),
             new Position(64, 78),
@@ -73,18 +60,6 @@ public record MachineSlotLayout(
 
     public static MachineSlotLayout robot(final MachineTier tier) {
         final MachineTier.Slots slots = tier.getRobotSlots();
-        if (tier == MachineTier.TIER_4) {
-            return new MachineSlotLayout(
-                new Position(34, 70),
-                new Position(34, 96),
-                grid(34, 24, 3, slots.memory()),
-                column(70, 70, slots.hardDrive()),
-                column(8, 24, slots.expansion()),
-                new Position(88, 70),
-                DEFAULT_PLAYER_INVENTORY_Y + TALL_EXTRA_HEIGHT,
-                DEFAULT_HEIGHT + TALL_EXTRA_HEIGHT);
-        }
-
         return new MachineSlotLayout(
             new Position(34, 52),
             new Position(34, 78),

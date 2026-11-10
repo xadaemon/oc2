@@ -58,14 +58,14 @@ public final class MachineTierTests {
     }
 
     @GameTest(template = TEMPLATE, timeoutTicks = 100)
-    public static void tier4ComputerHasSixSlotsAndTakesTheLargestParts(final GameTestHelper helper) {
+    public static void tier4ComputerKeepsOriginalLayoutAndTakesTheLargestParts(final GameTestHelper helper) {
         final ComputerFixture computer = ComputerFixture.place(helper, fakePlayer(helper), COMPUTER_POS,
             new ItemStack(Items.COMPUTER_TIER_4.get()));
         helper.startSequence()
             .thenExecuteAfter(5, () -> {
-                assertSlots(computer, DeviceTypes.MEMORY.get(), 6);
-                assertSlots(computer, DeviceTypes.HARD_DRIVE.get(), 6);
-                assertSlots(computer, DeviceTypes.CARD.get(), 6);
+                assertSlots(computer, DeviceTypes.MEMORY.get(), 4);
+                assertSlots(computer, DeviceTypes.HARD_DRIVE.get(), 4);
+                assertSlots(computer, DeviceTypes.CARD.get(), 4);
                 assertAccepts(computer, DeviceTypes.MEMORY.get(), Items.MEMORY_COLOSSAL.get(), true);
                 assertAccepts(computer, DeviceTypes.HARD_DRIVE.get(), Items.HARD_DRIVE_GARGANTUAN.get(), true);
                 helper.assertTrue(computer.blockEntity().getTier() == MachineTier.TIER_4, "expected a tier 4 computer");
@@ -114,15 +114,15 @@ public final class MachineTierTests {
     }
 
     @GameTest(template = TEMPLATE, timeoutTicks = 100)
-    public static void tier4RobotHasMoreSlotsAndTakesTheLargestParts(final GameTestHelper helper) {
+    public static void tier4RobotHasTier3SlotsAndTakesTheLargestParts(final GameTestHelper helper) {
         final RobotFixture robot = RobotFixture.place(helper, fakePlayer(helper), ROBOT_POS,
             new ItemStack(Items.ROBOT_TIER_4.get()));
         helper.startSequence()
             .thenExecuteAfter(5, () -> {
                 helper.assertTrue(robot.entity().getTier() == MachineTier.TIER_4, "expected a tier 4 robot");
-                assertSlots(robot, DeviceTypes.MEMORY.get(), 6);
-                assertSlots(robot, DeviceTypes.HARD_DRIVE.get(), 3);
-                assertSlots(robot, DeviceTypes.ROBOT_MODULE.get(), 6);
+                assertSlots(robot, DeviceTypes.MEMORY.get(), 4);
+                assertSlots(robot, DeviceTypes.HARD_DRIVE.get(), 2);
+                assertSlots(robot, DeviceTypes.ROBOT_MODULE.get(), 4);
                 assertAccepts(robot, DeviceTypes.MEMORY.get(), Items.MEMORY_COLOSSAL.get(), true);
                 assertAccepts(robot, DeviceTypes.HARD_DRIVE.get(), Items.HARD_DRIVE_GARGANTUAN.get(), true);
                 assertAccepts(robot, DeviceTypes.FLOPPY.get(), Items.FLOPPY_HIGH_DENSITY.get(), true);
