@@ -23,7 +23,9 @@ public final class Blocks {
     public static final RegistrySupplier<ComputerBlock> COMPUTER_TIER_3 = BLOCKS.register("computer_tier_3", () -> new ComputerBlock(MachineTier.TIER_3));
     public static final RegistrySupplier<ComputerBlock> COMPUTER_TIER_4 = BLOCKS.register("computer_tier_4", () -> new ComputerBlock(MachineTier.TIER_4));
     public static final RegistrySupplier<CreativeEnergyBlock> CREATIVE_ENERGY = BLOCKS.register("creative_energy", CreativeEnergyBlock::new);
-    public static final RegistrySupplier<DiskDriveBlock> DISK_DRIVE = BLOCKS.register("disk_drive", DiskDriveBlock::new);
+    public static final RegistrySupplier<DiskDriveBlock> DISK_DRIVE = BLOCKS.register("disk_drive", () -> new DiskDriveBlock(1));
+    public static final RegistrySupplier<DiskDriveBlock> DISK_DRIVE_DOUBLE_SIDED = BLOCKS.register("disk_drive_double_sided", () -> new DiskDriveBlock(2));
+    public static final RegistrySupplier<DiskDriveBlock> DISK_DRIVE_HIGH_DENSITY = BLOCKS.register("disk_drive_high_density", () -> new DiskDriveBlock(3));
     public static final RegistrySupplier<FlashDriveBlock> FLASH_DRIVE = BLOCKS.register("flash_drive", FlashDriveBlock::new);
     public static final RegistrySupplier<KeyboardBlock> KEYBOARD = BLOCKS.register("keyboard", KeyboardBlock::new);
     public static final RegistrySupplier<NetworkConnectorBlock> NETWORK_CONNECTOR = BLOCKS.register("network_connector", NetworkConnectorBlock::new);
@@ -38,6 +40,7 @@ public final class Blocks {
      * All computer blocks, ordered by tier.
      */
     public static final List<RegistrySupplier<ComputerBlock>> COMPUTERS = List.of(COMPUTER_TIER_1, COMPUTER, COMPUTER_TIER_3, COMPUTER_TIER_4);
+    public static final List<RegistrySupplier<DiskDriveBlock>> DISK_DRIVES = List.of(DISK_DRIVE, DISK_DRIVE_DOUBLE_SIDED, DISK_DRIVE_HIGH_DENSITY);
 
     // --------------------------------------------------------------------- //
 

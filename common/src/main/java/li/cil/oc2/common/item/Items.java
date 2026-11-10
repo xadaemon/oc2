@@ -33,6 +33,8 @@ public final class Items {
     public static final RegistrySupplier<Item> COMPUTER_TIER_4 = register(Blocks.COMPUTER_TIER_4, ComputerItem::new);
     public static final RegistrySupplier<Item> CREATIVE_ENERGY = register(Blocks.CREATIVE_ENERGY);
     public static final RegistrySupplier<Item> DISK_DRIVE = register(Blocks.DISK_DRIVE);
+    public static final RegistrySupplier<Item> DISK_DRIVE_DOUBLE_SIDED = register(Blocks.DISK_DRIVE_DOUBLE_SIDED);
+    public static final RegistrySupplier<Item> DISK_DRIVE_HIGH_DENSITY = register(Blocks.DISK_DRIVE_HIGH_DENSITY);
     public static final RegistrySupplier<Item> FLASH_DRIVE = register(Blocks.FLASH_DRIVE);
     public static final RegistrySupplier<Item> KEYBOARD = register(Blocks.KEYBOARD);
     public static final RegistrySupplier<Item> NETWORK_CONNECTOR = register(Blocks.NETWORK_CONNECTOR);
@@ -112,6 +114,16 @@ public final class Items {
 
     public static final RegistrySupplier<FloppyItem> FLOPPY = register("floppy", () ->
         new FloppyItem(() -> Config.floppySize));
+    public static final RegistrySupplier<FloppyItem> FLOPPY_DOUBLE_SIDED = register("floppy_double_sided", () ->
+        new FloppyItem(() -> Config.floppyDoubleSidedSize));
+    public static final RegistrySupplier<FloppyItem> FLOPPY_HIGH_DENSITY = register("floppy_high_density", () ->
+        new FloppyItem(() -> Config.floppyHighDensitySize));
+
+    /**
+     * All floppies, ordered by capacity. The index decides which disk drives and robots read it.
+     */
+    public static final List<RegistrySupplier<FloppyItem>> FLOPPIES =
+        List.of(FLOPPY, FLOPPY_DOUBLE_SIDED, FLOPPY_HIGH_DENSITY);
 
     public static final RegistrySupplier<Item> FILE_IMPORT_EXPORT_CARD = register("file_import_export_card");
     public static final RegistrySupplier<Item> NETWORK_INTERFACE_CARD = register("network_interface_card", NetworkInterfaceCardItem::new);

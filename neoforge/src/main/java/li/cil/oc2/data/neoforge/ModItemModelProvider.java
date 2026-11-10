@@ -66,6 +66,10 @@ public final class ModItemModelProvider extends ItemModelProvider {
             .texture("layer1", "item/flash_memory_tint");
         simple(Items.FLOPPY, "item/floppy_base")
             .texture("layer1", "item/floppy_tint");
+        simple(Items.FLOPPY_DOUBLE_SIDED, "item/floppy_double_sided_base")
+            .texture("layer1", "item/floppy_tint");
+        simple(Items.FLOPPY_HIGH_DENSITY, "item/floppy_high_density_base")
+            .texture("layer1", "item/floppy_high_density_tint");
 
         simple(Items.REDSTONE_INTERFACE_CARD);
         simple(Items.SERIAL_INTERFACE_CARD);

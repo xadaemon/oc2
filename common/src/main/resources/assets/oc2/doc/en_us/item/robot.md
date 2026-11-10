@@ -3,12 +3,12 @@
 
 Robots are essentially mobile [computers](../block/computer.md). Due to their non-stationary nature, there is some behavior that differs from regular computers. They cannot connect to [bus interfaces](../block/bus_interface.md). Instead of card devices, they support module devices. These are specialized devices taking into account the robots' mobility. In place of a second [hard drive](hard_drive.md) bay they have a [floppy](floppy.md) slot, since they cannot use [disk drives](../block/disk_drive.md).
 
-Robots come in four tiers, like computers. Higher tiers have more slots, accept larger [memory](memory.md) and [hard drives](hard_drive.md), and run faster:
+Robots come in four tiers, like computers. Higher tiers have more slots, accept larger [memory](memory.md), [hard drives](hard_drive.md) and [floppies](floppy.md), and run faster:
 
-- Tier 1: 2 memory slots up to 4M, 1 hard drive slot up to 4M, 2 module slots, 1x clock speed.
-- Tier 2: 4 memory slots up to 8M, 1 hard drive slot up to 8M, 4 module slots, 1x clock speed.
-- Tier 3: 4 memory slots up to 32M, 2 hard drive slots up to 64M, 4 module slots, 1.5x clock speed.
-- Tier 4: 6 memory slots up to 64M, 3 hard drive slots up to 256M, 6 module slots, 2x clock speed.
+- Tier 1: 2 memory slots up to 4M, 1 hard drive slot up to 4M, 2 module slots, single-sided floppies, 1x clock speed.
+- Tier 2: 4 memory slots up to 8M, 1 hard drive slot up to 8M, 4 module slots, single-sided floppies, 1x clock speed.
+- Tier 3: 4 memory slots up to 32M, 2 hard drive slots up to 64M, 4 module slots, double-sided floppies, 1.5x clock speed.
+- Tier 4: 6 memory slots up to 64M, 3 hard drive slots up to 256M, 6 module slots, high density floppies, 2x clock speed.
 
 Robots have a fixed-size inventory, a fluid tank, and sport a state-of-the-art energy storage. Only the regular inventory and the tank of robots can be automatically filled and emptied, for example by a hopper or a pump. The component inventory of the robot must be manually configured.
 

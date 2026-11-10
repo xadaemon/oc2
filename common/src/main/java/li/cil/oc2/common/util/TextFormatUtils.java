@@ -11,16 +11,18 @@ import java.text.DecimalFormat;
 
 public final class TextFormatUtils {
     private static final int SIZE_STEP = 1024;
-    private static final String[] SIZE_FORMAT = {"%dB", "%dKB", "%dMB", "%dGB", "%dTB"};
+    private static final String[] SIZE_UNIT = {"B", "KB", "MB", "GB", "TB"};
+    private static final DecimalFormat SIZE_FORMAT = new DecimalFormat("#.#");
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
 
-    public static String formatSize(long size) {
+    public static String formatSize(final long size) {
+        double value = size;
         int index = 0;
-        while (size > SIZE_STEP && index < SIZE_FORMAT.length) {
-            size /= SIZE_STEP;
+        while (value >= SIZE_STEP && index < SIZE_UNIT.length - 1) {
+            value /= SIZE_STEP;
             index++;
         }
-        return String.format(SIZE_FORMAT[index], size);
+        return SIZE_FORMAT.format(value) + SIZE_UNIT[index];
     }
 
     public static String formatNumber(final double value) {

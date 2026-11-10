@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_floppy_high_density": {
+      "conditions": {
+        "items": [
+          {
+            "items": "oc2:floppy_high_density"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "oc2:floppy_high_density_erase"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_floppy_high_density"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "oc2:floppy_high_density_erase"
+    ]
+  }
+}

@@ -26,6 +26,19 @@ public final class FloppyItem extends AbstractStorageItem implements ColoredItem
 
     // --------------------------------------------------------------------- //
 
+    /**
+     * The kind of the specified floppy, as an index into {@link Items#FLOPPIES} starting at one, or
+     * zero if it is not one of ours.
+     */
+    public static int getLevel(final ItemStack stack) {
+        for (int i = 0; i < Items.FLOPPIES.size(); i++) {
+            if (stack.is(Items.FLOPPIES.get(i).get())) {
+                return i + 1;
+            }
+        }
+        return 0;
+    }
+
     @Nullable
     public BlockDeviceData getData(final ItemStack stack) {
         if (stack.isEmpty() || stack.getItem() != this) {
@@ -64,10 +77,15 @@ public final class FloppyItem extends AbstractStorageItem implements ColoredItem
     public void addCreativeTabItems(final CreativeModeTab.ItemDisplayParameters parameters, final CreativeModeTab.Output output) {
         output.accept(new ItemStack(this));
 
+        // Images are offered on the smallest floppy they fit on, to not list each one per floppy kind.
         final int capacity = getCapacity(new ItemStack(this));
+        final int level = getLevel(new ItemStack(this));
+        final int smallerCapacity = level > 1
+            ? Items.FLOPPIES.get(level - 2).get().getCapacity(new ItemStack(Items.FLOPPIES.get(level - 2).get()))
+            : 0;
         BlockDeviceDataRegistry.floppyValues().forEach(data -> {
             final ResourceLocation key = BlockDeviceDataRegistry.getKey(data);
-            if (key == null || data.getCapacity() > capacity) {
+            if (key == null || data.getCapacity() > capacity || data.getCapacity() <= smallerCapacity) {
                 return;
             }
 

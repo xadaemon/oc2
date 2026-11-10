@@ -107,6 +107,8 @@ public final class MachineTierTests {
                 assertSlots(robot, DeviceTypes.HARD_DRIVE.get(), 1);
                 assertSlots(robot, DeviceTypes.ROBOT_MODULE.get(), 2);
                 assertAccepts(robot, DeviceTypes.MEMORY.get(), Items.MEMORY_LARGE.get(), false);
+                assertAccepts(robot, DeviceTypes.FLOPPY.get(), Items.FLOPPY.get(), true);
+                assertAccepts(robot, DeviceTypes.FLOPPY.get(), Items.FLOPPY_DOUBLE_SIDED.get(), false);
             })
             .thenSucceed();
     }
@@ -123,6 +125,7 @@ public final class MachineTierTests {
                 assertSlots(robot, DeviceTypes.ROBOT_MODULE.get(), 6);
                 assertAccepts(robot, DeviceTypes.MEMORY.get(), Items.MEMORY_COLOSSAL.get(), true);
                 assertAccepts(robot, DeviceTypes.HARD_DRIVE.get(), Items.HARD_DRIVE_GARGANTUAN.get(), true);
+                assertAccepts(robot, DeviceTypes.FLOPPY.get(), Items.FLOPPY_HIGH_DENSITY.get(), true);
             })
             .thenSucceed();
     }

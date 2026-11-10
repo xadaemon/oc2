@@ -44,7 +44,9 @@ public class ExtraItemsJEIPlugin implements IModPlugin {
             registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, hardDrive.get(), new ImageSubtypeInterpreter());
         }
         registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, Items.FLASH_MEMORY.get(), new ImageSubtypeInterpreter());
-        registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, Items.FLOPPY.get(), new ImageSubtypeInterpreter());
+        for (final var floppy : Items.FLOPPIES) {
+            registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, floppy.get(), new ImageSubtypeInterpreter());
+        }
     }
 
     @Nullable

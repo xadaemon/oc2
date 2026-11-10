@@ -56,6 +56,8 @@ public final class ModBlockStateProvider extends BlockStateProvider {
         tieredComputer(Blocks.COMPUTER_TIER_4, Items.COMPUTER_TIER_4);
         simpleBlock(Blocks.CREATIVE_ENERGY, Items.CREATIVE_ENERGY);
         horizontalBlock(Blocks.DISK_DRIVE, Items.DISK_DRIVE, DISK_DRIVE_MODEL);
+        retexturedHorizontalBlock(Blocks.DISK_DRIVE_DOUBLE_SIDED, Items.DISK_DRIVE_DOUBLE_SIDED, DISK_DRIVE_MODEL);
+        retexturedHorizontalBlock(Blocks.DISK_DRIVE_HIGH_DENSITY, Items.DISK_DRIVE_HIGH_DENSITY, DISK_DRIVE_MODEL);
         orientableBlock(Blocks.FLASH_DRIVE, Items.FLASH_DRIVE, FLASH_DRIVE_MODEL);
         horizontalBlock(Blocks.KEYBOARD, Items.KEYBOARD, KEYBOARD_MODEL);
         networkConnectorBlock()
@@ -265,8 +267,15 @@ public final class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private <T extends Block> void tieredComputer(final RegistrySupplier<T> block, final RegistrySupplier<Item> item) {
+        retexturedHorizontalBlock(block, item, COMPUTER_MODEL);
+    }
+
+    /**
+     * A horizontal block using an existing model, with its texture atlas swapped for one named like the block.
+     */
+    private <T extends Block> void retexturedHorizontalBlock(final RegistrySupplier<T> block, final RegistrySupplier<Item> item, final ResourceLocation parent) {
         final String name = block.getId().getPath();
-        final var model = models().withExistingParent(name, COMPUTER_MODEL)
+        final var model = models().withExistingParent(name, parent)
             .texture("atlas", ResourceLocation.fromNamespaceAndPath(API.MOD_ID, "block/" + name));
         horizontalBlock(block.get(), model);
         itemModels().getBuilder(item.getId().getPath()).parent(model);

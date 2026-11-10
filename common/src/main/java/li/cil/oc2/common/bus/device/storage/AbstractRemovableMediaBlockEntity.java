@@ -67,6 +67,13 @@ public abstract class AbstractRemovableMediaBlockEntity<TDevice extends Abstract
 
     protected abstract AbstractMessage createMediaMessage();
 
+    /**
+     * Whether this container accepts the specified medium, in addition to it having the media tag.
+     */
+    protected boolean isMediaAllowed(final ItemStack stack) {
+        return true;
+    }
+
     // --------------------------------------------------------------------- //
 
     public boolean canInsert(final ItemStack stack) {
@@ -210,6 +217,11 @@ public abstract class AbstractRemovableMediaBlockEntity<TDevice extends Abstract
     private final class RemovableMediaItemStackHandler extends TypedItemStackHandler {
         public RemovableMediaItemStackHandler(final TagKey<Item> mediaTag) {
             super(1, mediaTag);
+        }
+
+        @Override
+        public boolean isItemValid(final int slot, final ItemStack stack) {
+            return super.isItemValid(slot, stack) && isMediaAllowed(stack);
         }
 
         public ItemStack getStackInSlotRaw(final int slot) {

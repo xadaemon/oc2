@@ -13,6 +13,8 @@
     "oc2:computer_tier_4",
     "oc2:redstone_interface",
     "oc2:disk_drive",
+    "oc2:disk_drive_double_sided",
+    "oc2:disk_drive_high_density",
     "oc2:flash_drive",
     "oc2:projector",
     "oc2:transposer"

@@ -10,6 +10,8 @@
     "oc2:internet_gateway",
     "oc2:redstone_interface",
     "oc2:disk_drive",
+    "oc2:disk_drive_double_sided",
+    "oc2:disk_drive_high_density",
     "oc2:flash_drive",
     "oc2:charger",
     "oc2:projector",

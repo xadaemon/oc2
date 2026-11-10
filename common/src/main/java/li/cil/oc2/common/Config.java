@@ -125,6 +125,14 @@ public final class Config {
     @Min(1)
     @Comment("Capacity of floppy disks, in bytes.")
     public static int floppySize = 512 * Constants.KILOBYTE;
+    @Path("vm.sizes")
+    @Min(1)
+    @Comment("Capacity of double-sided floppy disks, in bytes.")
+    public static int floppyDoubleSidedSize = Constants.MEGABYTE;
+    @Path("vm.sizes")
+    @Min(1)
+    @Comment("Capacity of high density floppy disks, in bytes.")
+    public static int floppyHighDensitySize = 1440 * Constants.KILOBYTE;
 
     @Path("energy.blocks")
     public static double busCableEnergyPerTick = 0.1;

@@ -1,0 +1,6 @@
+{
+  "parent": "oc2:block/disk_drive",
+  "textures": {
+    "atlas": "oc2:block/disk_drive_double_sided"
+  }
+}

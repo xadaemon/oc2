@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "oc2:circuit_board"
+    },
+    "G": {
+      "tag": "c:nuggets/gold"
+    },
+    "L": {
+      "tag": "c:gems/lapis"
+    },
+    "Q": {
+      "tag": "c:gems/quartz"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "T": {
+      "item": "oc2:transistor"
+    }
+  },
+  "pattern": [
+    "QTQ",
+    "LBL",
+    "RGR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "oc2:floppy_high_density"
+  }
+}

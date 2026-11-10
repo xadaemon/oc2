@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_floppy_double_sided": {
+      "conditions": {
+        "items": [
+          {
+            "items": "oc2:floppy_double_sided"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "oc2:floppy_double_sided_erase"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_floppy_double_sided"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "oc2:floppy_double_sided_erase"
+    ]
+  }
+}

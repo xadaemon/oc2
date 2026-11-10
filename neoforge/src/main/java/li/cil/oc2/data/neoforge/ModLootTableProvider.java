@@ -41,7 +41,9 @@ public final class ModLootTableProvider extends LootTableProvider {
             for (final var computer : Blocks.COMPUTERS) {
                 dropSelf(computer.get());
             }
-            dropSelf(Blocks.DISK_DRIVE.get());
+            for (final var drive : Blocks.DISK_DRIVES) {
+                dropSelf(drive.get());
+            }
             dropSelf(Blocks.FLASH_DRIVE.get());
             dropSelf(Blocks.KEYBOARD.get());
             dropSelf(Blocks.NETWORK_CONNECTOR.get());

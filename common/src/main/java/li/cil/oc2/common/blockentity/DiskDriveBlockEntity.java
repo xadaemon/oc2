@@ -13,6 +13,7 @@ import li.cil.oc2.common.util.SoundEvents;
 import li.cil.oc2.common.util.ThrottledSoundEmitter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.time.Duration;
@@ -37,6 +38,11 @@ public final class DiskDriveBlockEntity extends AbstractRemovableMediaBlockEntit
     @Override
     protected Direction getEjectDirection() {
         return getBlockState().getValue(DiskDriveBlock.FACING);
+    }
+
+    @Override
+    protected boolean isMediaAllowed(final ItemStack stack) {
+        return !(getBlockState().getBlock() instanceof final DiskDriveBlock drive) || drive.accepts(stack);
     }
 
     @Override

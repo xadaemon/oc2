@@ -142,8 +142,21 @@ public final class TooltipUtils {
             withFormat(TextFormatUtils.formatSize(hardDrive.getCapacity(new ItemStack(hardDrive))), ChatFormatting.GREEN)), ChatFormatting.GRAY));
         tooltip.add(withFormat(Component.translatable(robot ? Constants.TOOLTIP_MACHINE_TIER_MODULES : Constants.TOOLTIP_MACHINE_TIER_CARDS,
             withFormat(String.valueOf(slots.expansion()), ChatFormatting.GREEN)), ChatFormatting.GRAY));
+        if (robot) {
+            tooltip.add(withFormat(Component.translatable(Constants.TOOLTIP_MACHINE_TIER_FLOPPY,
+                withFormat(tier.getLargestFloppy().getDescription().copy(), ChatFormatting.GREEN)), ChatFormatting.GRAY));
+        }
         tooltip.add(withFormat(Component.translatable(Constants.TOOLTIP_MACHINE_TIER_CLOCK,
             withFormat(TextFormatUtils.formatNumber(tier.getClockMultiplier()) + "x", ChatFormatting.GREEN)), ChatFormatting.GRAY));
+    }
+
+    /**
+     * Lists the largest floppy a disk drive reads. Drives read all smaller floppies, too.
+     */
+    public static void addFloppyLimitInformation(final FloppyItem floppy, final List<Component> tooltip) {
+        tooltip.add(withFormat(Component.translatable(Constants.TOOLTIP_DISK_DRIVE_READS,
+            withFormat(floppy.getDescription().copy(), ChatFormatting.GREEN),
+            withFormat(TextFormatUtils.formatSize(floppy.getCapacity(new ItemStack(floppy))), ChatFormatting.GREEN)), ChatFormatting.GRAY));
     }
 
     public static void addEnergyConsumption(final double value, final List<Component> tooltip) {

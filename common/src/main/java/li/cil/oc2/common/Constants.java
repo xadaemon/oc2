@@ -49,6 +49,8 @@ public final class Constants {
     public static final String TOOLTIP_MACHINE_TIER_CARDS = key("tooltip.{mod}.machine_tier.cards");
     public static final String TOOLTIP_MACHINE_TIER_MODULES = key("tooltip.{mod}.machine_tier.modules");
     public static final String TOOLTIP_MACHINE_TIER_CLOCK = key("tooltip.{mod}.machine_tier.clock");
+    public static final String TOOLTIP_MACHINE_TIER_FLOPPY = key("tooltip.{mod}.machine_tier.floppy");
+    public static final String TOOLTIP_DISK_DRIVE_READS = key("tooltip.{mod}.disk_drive.reads");
     public static final String TOOLTIP_ENERGY = key("tooltip.{mod}.energy");
     public static final String TOOLTIP_ENERGY_CONSUMPTION = key("tooltip.{mod}.energyConsumption");
     public static final String TOOLTIP_FLUID = key("tooltip.{mod}.fluid");

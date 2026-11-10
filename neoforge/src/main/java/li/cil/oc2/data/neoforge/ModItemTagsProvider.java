@@ -62,7 +62,9 @@ public final class ModItemTagsProvider extends ItemTagsProvider {
             Items.FLASH_MEMORY.get()
         );
         tag(DEVICES_FLOPPY).add(
-            Items.FLOPPY.get()
+            Items.FLOPPY.get(),
+            Items.FLOPPY_DOUBLE_SIDED.get(),
+            Items.FLOPPY_HIGH_DENSITY.get()
         );
         tag(DEVICES_CARD).add(
             Items.REDSTONE_INTERFACE_CARD.get(),
@@ -97,6 +99,8 @@ public final class ModItemTagsProvider extends ItemTagsProvider {
             Items.CPU_RISCV.get(),
             Items.CPU_Z80.get(),
             Items.DISK_DRIVE.get(),
+            Items.DISK_DRIVE_DOUBLE_SIDED.get(),
+            Items.DISK_DRIVE_HIGH_DENSITY.get(),
             Items.FLASH_DRIVE.get(),
             Items.FLASH_MEMORY.get(),
             Items.HARD_DRIVE_SMALL.get(),

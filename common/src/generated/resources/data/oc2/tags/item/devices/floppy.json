@@ -1,5 +1,7 @@
 {
   "values": [
-    "oc2:floppy"
+    "oc2:floppy",
+    "oc2:floppy_double_sided",
+    "oc2:floppy_high_density"
   ]
 }

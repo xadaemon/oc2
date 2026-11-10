@@ -179,6 +179,61 @@ public final class ModRecipesProvider extends RecipeProvider {
             .unlockedBy("has_computer", inventoryChange(Items.COMPUTER.get()))
             .save(consumer);
 
+        // Better drives are upgrades of the previous one: a second head, then a finer one.
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.DISK_DRIVE_DOUBLE_SIDED.get())
+            .pattern("ITI")
+            .pattern("RDR")
+            .pattern("IBI")
+            .define('I', Tags.Items.INGOTS_IRON)
+            .define('T', Items.TRANSISTOR.get())
+            .define('R', Tags.Items.DUSTS_REDSTONE)
+            .define('D', Items.DISK_DRIVE.get())
+            .define('B', Items.CIRCUIT_BOARD.get())
+            .unlockedBy("has_disk_drive", inventoryChange(Items.DISK_DRIVE.get()))
+            .save(consumer);
+
+        // Both sides coated, so twice the medium.
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.FLOPPY_DOUBLE_SIDED.get())
+            .pattern("QTQ")
+            .pattern("RBR")
+            .pattern("QRQ")
+            .define('Q', Tags.Items.GEMS_QUARTZ)
+            .define('T', Items.TRANSISTOR.get())
+            .define('R', Tags.Items.DUSTS_REDSTONE)
+            .define('B', Items.CIRCUIT_BOARD.get())
+            .unlockedBy("has_disk_drive_double_sided", inventoryChange(Items.DISK_DRIVE_DOUBLE_SIDED.get()))
+            .save(consumer);
+
+        // A finer coating for high density.
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.FLOPPY_HIGH_DENSITY.get())
+            .pattern("QTQ")
+            .pattern("LBL")
+            .pattern("RGR")
+            .define('Q', Tags.Items.GEMS_QUARTZ)
+            .define('T', Items.TRANSISTOR.get())
+            .define('L', Tags.Items.GEMS_LAPIS)
+            .define('B', Items.CIRCUIT_BOARD.get())
+            .define('R', Tags.Items.DUSTS_REDSTONE)
+            .define('G', Tags.Items.NUGGETS_GOLD)
+            .unlockedBy("has_disk_drive_high_density", inventoryChange(Items.DISK_DRIVE_HIGH_DENSITY.get()))
+            .save(consumer);
+
+        ShapedRecipeBuilder
+            .shaped(RecipeCategory.MISC, Items.DISK_DRIVE_HIGH_DENSITY.get())
+            .pattern("GTG")
+            .pattern("QDQ")
+            .pattern("GBG")
+            .define('G', Tags.Items.INGOTS_GOLD)
+            .define('T', Items.TRANSISTOR.get())
+            .define('Q', Tags.Items.GEMS_QUARTZ)
+            .define('D', Items.DISK_DRIVE_DOUBLE_SIDED.get())
+            .define('B', Items.CIRCUIT_BOARD.get())
+            .unlockedBy("has_disk_drive_double_sided", inventoryChange(Items.DISK_DRIVE_DOUBLE_SIDED.get()))
+            .save(consumer);
+
         ShapedRecipeBuilder
             .shaped(RecipeCategory.MISC, Items.FLASH_DRIVE.get())
             .pattern("IUI")
@@ -743,6 +798,20 @@ public final class ModRecipesProvider extends RecipeProvider {
             .requires(Items.FLOPPY.get())
             .unlockedBy("has_floppy", inventoryChange(Items.FLOPPY.get()))
             .save(consumer, API.MOD_ID + ":floppy_erase");
+
+        ToolRecipeBuilder
+            .toolRecipe(Items.FLOPPY_DOUBLE_SIDED.get())
+            .requires(Items.WRENCH.get())
+            .requires(Items.FLOPPY_DOUBLE_SIDED.get())
+            .unlockedBy("has_floppy_double_sided", inventoryChange(Items.FLOPPY_DOUBLE_SIDED.get()))
+            .save(consumer, API.MOD_ID + ":floppy_double_sided_erase");
+
+        ToolRecipeBuilder
+            .toolRecipe(Items.FLOPPY_HIGH_DENSITY.get())
+            .requires(Items.WRENCH.get())
+            .requires(Items.FLOPPY_HIGH_DENSITY.get())
+            .unlockedBy("has_floppy_high_density", inventoryChange(Items.FLOPPY_HIGH_DENSITY.get()))
+            .save(consumer, API.MOD_ID + ":floppy_high_density_erase");
 
         ToolRecipeBuilder
             .toolRecipe(Items.FLASH_MEMORY.get().withData(BlockDeviceDataRegistry.FIRMWARE_RISCV.getId()))

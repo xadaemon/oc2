@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "oc2:circuit_board"
+    },
+    "D": {
+      "item": "oc2:disk_drive"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "T": {
+      "item": "oc2:transistor"
+    }
+  },
+  "pattern": [
+    "ITI",
+    "RDR",
+    "IBI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "oc2:disk_drive_double_sided"
+  }
+}

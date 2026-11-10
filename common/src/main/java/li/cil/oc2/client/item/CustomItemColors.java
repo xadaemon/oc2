@@ -47,7 +47,9 @@ public final class CustomItemColors {
             Items.HARD_DRIVE_TITANIC,
             Items.HARD_DRIVE_GARGANTUAN,
             Items.FLASH_MEMORY,
-            Items.FLOPPY);
+            Items.FLOPPY,
+            Items.FLOPPY_DOUBLE_SIDED,
+            Items.FLOPPY_HIGH_DENSITY);
     }
 
     public static int getColorByDye(final DyeColor dye) {

@@ -2,17 +2,24 @@
 
 package li.cil.oc2.common.block;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import li.cil.oc2.common.blockentity.BlockEntities;
 import li.cil.oc2.common.blockentity.DiskDriveBlockEntity;
 import li.cil.oc2.common.blockentity.ModBlockEntity;
+import li.cil.oc2.common.item.FloppyItem;
+import li.cil.oc2.common.item.Items;
+import li.cil.oc2.common.item.TooltipUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -26,22 +33,59 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public final class DiskDriveBlock extends HorizontalDirectionalBlock implements EntityBlock {
-    public static final MapCodec<DiskDriveBlock> CODEC = MapCodec.unit(DiskDriveBlock::new);
+    public static final MapCodec<DiskDriveBlock> CODEC = Codec.intRange(1, Items.FLOPPIES.size())
+        .fieldOf("level").xmap(DiskDriveBlock::new, DiskDriveBlock::getLevel);
 
     // --------------------------------------------------------------------- //
 
-    public DiskDriveBlock() {
+    private final int level;
+
+    // --------------------------------------------------------------------- //
+
+    /**
+     * @param level the largest kind of floppy this drive reads, as an index into {@link Items#FLOPPIES}
+     *              starting at one. Drives read all smaller kinds, too.
+     */
+    public DiskDriveBlock(final int level) {
         super(Properties
             .of()
             .mapColor(MapColor.METAL)
             .sound(SoundType.METAL)
             .strength(1.5f, 6.0f));
         registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH));
+        this.level = level;
     }
 
     // --------------------------------------------------------------------- //
+
+    public int getLevel() {
+        return level;
+    }
+
+    /**
+     * The largest floppy this drive reads.
+     */
+    public FloppyItem getLargestFloppy() {
+        return Items.FLOPPIES.get(level - 1).get();
+    }
+
+    /**
+     * Whether this drive reads the specified floppy. Floppies not in {@link Items#FLOPPIES}, e.g. ones
+     * added by other mods, are always read.
+     */
+    public boolean accepts(final ItemStack stack) {
+        final int floppyLevel = FloppyItem.getLevel(stack);
+        return floppyLevel == 0 || floppyLevel <= level;
+    }
+
+    @Override
+    public void appendHoverText(final ItemStack stack, final Item.TooltipContext context, final List<Component> tooltip, final TooltipFlag flag) {
+        super.appendHoverText(stack, context, tooltip, flag);
+        TooltipUtils.addFloppyLimitInformation(getLargestFloppy(), tooltip);
+    }
 
     @Override
     protected MapCodec<? extends DiskDriveBlock> codec() {

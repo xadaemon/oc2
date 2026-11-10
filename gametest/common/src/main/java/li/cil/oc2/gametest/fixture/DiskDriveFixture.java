@@ -25,7 +25,15 @@ public final class DiskDriveFixture {
     }
 
     public static DiskDriveFixture place(final GameTestHelper helper, final Player player, final BlockPos pos) {
-        TestSupport.place(helper, player, new ItemStack(Items.DISK_DRIVE.get()), pos);
+        return place(helper, player, pos, new ItemStack(Items.DISK_DRIVE.get()));
+    }
+
+    public static DiskDriveFixture place(final GameTestHelper helper, final ItemStack drive) {
+        return place(helper, fakePlayer(helper), DEVICE_POS, drive);
+    }
+
+    public static DiskDriveFixture place(final GameTestHelper helper, final Player player, final BlockPos pos, final ItemStack drive) {
+        TestSupport.place(helper, player, drive, pos);
         return new DiskDriveFixture(helper, pos);
     }
 

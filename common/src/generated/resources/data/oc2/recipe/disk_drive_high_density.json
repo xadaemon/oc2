@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "oc2:circuit_board"
+    },
+    "D": {
+      "item": "oc2:disk_drive_double_sided"
+    },
+    "G": {
+      "tag": "c:ingots/gold"
+    },
+    "Q": {
+      "tag": "c:gems/quartz"
+    },
+    "T": {
+      "item": "oc2:transistor"
+    }
+  },
+  "pattern": [
+    "GTG",
+    "QDQ",
+    "GBG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "oc2:disk_drive_high_density"
+  }
+}

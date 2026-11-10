@@ -3,6 +3,11 @@
 
 The disk drive provides an option for quick media exchange. [Floppy disks](../item/floppy.md) can be added and removed at runtime, unlike [hard drives](../item/hard_drive.md).
 
+Disk drives come in three kinds. Each reads its own kind of floppy and all smaller ones:
+- Disk Drive: reads single-sided floppies.
+- Double-Sided Disk Drive: also reads double-sided floppies. Crafted from a disk drive.
+- High Density Disk Drive: reads all floppies, up to the classic 1.4M high density ones. Crafted from a double-sided disk drive.
+
 Computers *have to be shut down* before installing or removing this component. Installing it while the computer is running will have no effect, removing it may lead to system errors.
 
 ## OpenOS II

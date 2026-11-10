@@ -21,7 +21,9 @@ public final class CustomItemModelProperties {
             (stack, level, entity, seed) -> CustomItemColors.getColor(stack));
         ClientPlatform.registerItemProperty(Items.FLASH_MEMORY.get(), CustomItemModelProperties.COLOR_PROPERTY,
             (stack, level, entity, seed) -> CustomItemColors.getColor(stack));
-        ClientPlatform.registerItemProperty(Items.FLOPPY.get(), CustomItemModelProperties.COLOR_PROPERTY,
-            (stack, level, entity, seed) -> CustomItemColors.getColor(stack));
+        for (final var floppy : Items.FLOPPIES) {
+            ClientPlatform.registerItemProperty(floppy.get(), CustomItemModelProperties.COLOR_PROPERTY,
+                (stack, level, entity, seed) -> CustomItemColors.getColor(stack));
+        }
     }
 }
